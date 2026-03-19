@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # VUC-2026 - Vespera Ultimate Central
 
 🚀 **Otonom YouTube İmparatorluk Yönetim Sistemi**
@@ -220,3 +221,7 @@ Bu araç YouTube Hizmet Şartları'nın Grey-Hat alanında kalan özellikler iç
 **VUC-2026 - YouTube'da Hakimiyet Kurmanın Yolu** 🚀
 
 *Made with 🧠 by Vespera Team*
+=======
+# vuc-2026-ultimate-dev
+🚀 VUC-2026 Ultimate Dev++ - Autonomous YouTube Empire Management System powered by AI.  Next.js 14 + FastAPI + Gemini 2.0 Pro + Celery for complete content automation.
+>>>>>>> c77e332a44cbb8a213827e96c08dcc918de6855c
