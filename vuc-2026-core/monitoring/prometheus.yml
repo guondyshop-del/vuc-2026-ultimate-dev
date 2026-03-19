@@ -1,0 +1,203 @@
+# VUC-2026 Prometheus Configuration
+# Comprehensive monitoring for all system components
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'vuc-2026-monitor'
+    environment: 'production'
+
+rule_files:
+  - "rules/*.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Node Exporter (System Metrics)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    params:
+      collect[]:
+        - cpu
+        - meminfo
+        - diskstats
+        - netdev
+        - filefd
+        - filesystem
+        - loadavg
+        - time
+        - vmstat
+
+  # cAdvisor (Container Metrics)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    honor_labels: true
+
+  # Redis Exporter
+  - job_name: 'redis-exporter'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Postgres Exporter
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Nginx Exporter (if available)
+  - job_name: 'nginx-exporter'
+    static_configs:
+      - targets: ['nginx-exporter:9113']
+    scrape_interval: 30s
+    metrics_path: /metrics
+
+  # Backend Application Metrics
+  - job_name: 'vuc-backend'
+    static_configs:
+      - targets: ['backend:8000']
+    scrape_interval: 15s
+    metrics_path: /metrics
+    params:
+      format: ['prometheus']
+
+  # Frontend Application Metrics (if available)
+  - job_name: 'vuc-frontend'
+    static_configs:
+      - targets: ['frontend:3000']
+    scrape_interval: 30s
+    metrics_path: /api/metrics
+
+  # Celery Workers Metrics
+  - job_name: 'celery-workers'
+    static_configs:
+      - targets: ['backend:8000']
+    scrape_interval: 15s
+    metrics_path: /metrics/celery
+
+  # Docker Containers (alternative to cAdvisor)
+  - job_name: 'docker-containers'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    relabel_configs:
+      - source_labels: [__name__]
+        regex: 'container_.*'
+        target_label: container_metric
+
+  # Blackbox Monitoring (HTTP checks)
+  - job_name: 'blackbox-http'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - http://backend:8000/health
+        - http://frontend:3000
+        - https://vuc-2026.com/health
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+  # Blackbox Monitoring (TCP checks)
+  - job_name: 'blackbox-tcp'
+    metrics_path: /probe
+    params:
+      module: [tcp_connect]
+    static_configs:
+      - targets:
+        - postgres:5432
+        - redis:6379
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: blackbox-exporter:9115
+
+# Recording rules for performance metrics
+recording_rules:
+  - name: vuc-2026-aggregation.rules
+    interval: 30s
+    rules:
+      # CPU usage aggregation
+      - record: instance:node_cpu_utilization:rate5m
+        expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100)
+      
+      # Memory usage aggregation
+      - record: instance:node_memory_utilization:ratio
+        expr: node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes
+      
+      # Disk usage aggregation
+      - record: instance:node_disk_utilization:ratio
+        expr: (node_filesystem_size_bytes - node_filesystem_avail_bytes) / node_filesystem_size_bytes
+      
+      # Container CPU usage
+      - record: container:cpu_utilization:rate5m
+        expr: rate(container_cpu_usage_seconds_total{name!=""}[5m]) * 100
+      
+      # Container memory usage
+      - record = container:memory_utilization:ratio
+        expr = container_memory_usage_bytes{name!=""} / container_spec_memory_limit_bytes{name!=""} * 100
+      
+      # Backend request rate
+      - record: vuc:backend:request_rate:5m
+        expr: rate(http_requests_total{job="vuc-backend"}[5m])
+      
+      # Backend error rate
+      - record: vuc:backend:error_rate:5m
+        expr: rate(http_requests_total{job="vuc-backend",status=~"5.."}[5m]) / rate(http_requests_total{job="vuc-backend"}[5m]) * 100
+      
+      # Backend response time
+      - record: vuc:backend:response_time:5m
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job="vuc-backend"}[5m]))
+      
+      # Celery task rate
+      - record: vuc:celery:task_rate:5m
+        expr: rate(celery_task_sent_total[5m])
+      
+      # Celery task duration
+      - record: vuc:celery:task_duration:5m
+        expr: histogram_quantile(0.95, rate(celery_task_runtime_seconds_bucket[5m]))
+      
+      # Redis memory usage
+      - record: vuc:redis:memory_usage:bytes
+        expr: redis_memory_used_bytes
+      
+      # Redis connections
+      - record: vuc:redis:connections:count
+        expr: redis_connected_clients
+      
+      # PostgreSQL connections
+      - record: vuc:postgres:connections:count
+        expr: pg_stat_database_numbackends
+      
+      # PostgreSQL query duration
+      - record: vuc:postgres:query_duration:5m
+        expr: histogram_quantile(0.95, rate(pg_stat_statements_mean_duration_seconds[5m]))

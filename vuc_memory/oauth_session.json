@@ -1,0 +1,13 @@
+{
+  "last_authenticated": "2026-03-19T22:24:51.328829",
+  "expires_at": "2026-03-19T20:23:27",
+  "has_refresh_token": true,
+  "client_id": "279960646827-np4kj3slnmp44foid0fqtscuq610ilqh.apps.googleusercontent.com",
+  "scopes": [
+    "https://www.googleapis.com/auth/youtube.upload",
+    "https://www.googleapis.com/auth/youtube.readonly",
+    "https://www.googleapis.com/auth/youtubepartner",
+    "https://www.googleapis.com/auth/youtube.force-ssl"
+  ],
+  "status": "authenticated"
+}

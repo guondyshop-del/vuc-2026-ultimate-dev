@@ -10,6 +10,7 @@ try:
     from . import scripts
     from . import analytics
     from . import settings
+    from . import family_kids_empire
 except ImportError as e:
     print(f"API modülü import hatası: {e}")
     # Boş modüller oluştur
@@ -18,3 +19,4 @@ except ImportError as e:
     scripts = None
     analytics = None
     settings = None
+    family_kids_empire = None

@@ -1,0 +1,275 @@
+# VUC-2026 Optimized Docker Compose Configuration
+# High-concurrency video processing with Redis and Celery
+
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vuc-postgres
+    environment:
+      POSTGRES_DB: vuc2026
+      POSTGRES_USER: vuc_user
+      POSTGRES_PASSWORD: vuc_secure_password_2026
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vuc_user -d vuc2026"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Redis with optimized configuration
+  redis:
+    image: redis:7-alpine
+    container_name: vuc-redis
+    command: redis-server --appendonly yes --maxmemory 512mb --maxmemory-policy allkeys-lru
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-backend
+    environment:
+      - DATABASE_URL=postgresql://vuc_user:vuc_secure_password_2026@postgres:5432/vuc2026
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/app
+    volumes:
+      - ./logs:/app/logs
+      - ./videos:/app/videos
+      - ./temp:/app/temp
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Celery Worker - Video Processing
+  celery-video-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-celery-video
+    command: python -m celery -A backend.celery_app.celery_optimized worker --loglevel=info --queues=video_processing,render_queue --concurrency=2 --max-tasks-per-child=10
+    environment:
+      - DATABASE_URL=postgresql://vuc_user:vuc_secure_password_2026@postgres:5432/vuc2026
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/app
+    volumes:
+      - ./logs:/app/logs
+      - ./videos:/app/videos
+      - ./temp:/app/temp
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+
+  # Celery Worker - Upload Tasks
+  celery-upload-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-celery-upload
+    command: python -m celery -A backend.celery_app.celery_optimized worker --loglevel=info --queues=upload_queue --concurrency=4 --max-tasks-per-child=20
+    environment:
+      - DATABASE_URL=postgresql://vuc_user:vuc_secure_password_2026@postgres:5432/vuc2026
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/app
+    volumes:
+      - ./logs:/app/logs
+      - ./videos:/app/videos
+      - ./temp:/app/temp
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 1G
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  # Celery Worker - Analytics Tasks
+  celery-analytics-worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-celery-analytics
+    command: python -m celery -A backend.celery_app.celery_optimized worker --loglevel=info --queues=analytics_queue,default --concurrency=8 --max-tasks-per-child=100
+    environment:
+      - DATABASE_URL=postgresql://vuc_user:vuc_secure_password_2026@postgres:5432/vuc2026
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/app
+    volumes:
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Celery Beat Scheduler
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-celery-beat
+    command: python -m celery -A backend.celery_app.celery_optimized beat --loglevel=info --schedule=/tmp/celerybeat-schedule
+    environment:
+      - DATABASE_URL=postgresql://vuc_user:vuc_secure_password_2026@postgres:5432/vuc2026
+      - REDIS_URL=redis://redis:6379/0
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+      - PYTHONPATH=/app
+    volumes:
+      - ./logs:/app/logs
+      - celerybeat_data:/tmp
+    depends_on:
+      - postgres
+      - redis
+      - backend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: vuc-frontend
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: vuc-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Redis Commander (Redis Management UI)
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: vuc-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+  # Flower (Celery Monitoring)
+  flower:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    container_name: vuc-flower
+    command: python -m celery -A backend.celery_app.celery_optimized flower --port=5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    ports:
+      - "5555:5555"
+    depends_on:
+      - redis
+      - celery-video-worker
+      - celery-upload-worker
+      - celery-analytics-worker
+    restart: unless-stopped
+    networks:
+      - vuc-network
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  celerybeat_data:
+    driver: local
+
+networks:
+  vuc-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

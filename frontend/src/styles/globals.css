@@ -1,0 +1,205 @@
+/* VUC-2026 Global Styles */
+/* Fix for @apply warnings - using standard CSS instead */
+
+/* Progress Bar Styles */
+.progress-bar {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+.progress-bar-fill {
+  background-color: #2563eb;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.progress-bar-fill[data-progress="0"] { width: 0%; }
+.progress-bar-fill[data-progress="10"] { width: 10%; }
+.progress-bar-fill[data-progress="20"] { width: 20%; }
+.progress-bar-fill[data-progress="30"] { width: 30%; }
+.progress-bar-fill[data-progress="40"] { width: 40%; }
+.progress-bar-fill[data-progress="50"] { width: 50%; }
+.progress-bar-fill[data-progress="60"] { width: 60%; }
+.progress-bar-fill[data-progress="70"] { width: 70%; }
+.progress-bar-fill[data-progress="80"] { width: 80%; }
+.progress-bar-fill[data-progress="90"] { width: 90%; }
+.progress-bar-fill[data-progress="100"] { width: 100%; }
+
+/* Analytics Chart Bar Styles */
+.analytics-bar {
+  background-color: #2563eb;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.analytics-bar[data-width="0"] { width: 0%; }
+.analytics-bar[data-width="10"] { width: 10%; }
+.analytics-bar[data-width="20"] { width: 20%; }
+.analytics-bar[data-width="30"] { width: 30%; }
+.analytics-bar[data-width="40"] { width: 40%; }
+.analytics-bar[data-width="50"] { width: 50%; }
+.analytics-bar[data-width="60"] { width: 60%; }
+.analytics-bar[data-width="70"] { width: 70%; }
+.analytics-bar[data-width="80"] { width: 80%; }
+.analytics-bar[data-width="90"] { width: 90%; }
+.analytics-bar[data-width="100"] { width: 100%; }
+
+/* Green Analytics Bar */
+.analytics-bar-green {
+  background-color: #16a34a;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.analytics-bar-green[data-width="0"] { width: 0%; }
+.analytics-bar-green[data-width="10"] { width: 10%; }
+.analytics-bar-green[data-width="20"] { width: 20%; }
+.analytics-bar-green[data-width="30"] { width: 30%; }
+.analytics-bar-green[data-width="40"] { width: 40%; }
+.analytics-bar-green[data-width="50"] { width: 50%; }
+.analytics-bar-green[data-width="60"] { width: 60%; }
+.analytics-bar-green[data-width="70"] { width: 70%; }
+.analytics-bar-green[data-width="80"] { width: 80%; }
+.analytics-bar-green[data-width="90"] { width: 90%; }
+.analytics-bar-green[data-width="100"] { width: 100%; }
+
+/* Purple Analytics Bar */
+.analytics-bar-purple {
+  background-color: #9333ea;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.analytics-bar-purple[data-width="0"] { width: 0%; }
+.analytics-bar-purple[data-width="10"] { width: 10%; }
+.analytics-bar-purple[data-width="20"] { width: 20%; }
+.analytics-bar-purple[data-width="30"] { width: 30%; }
+.analytics-bar-purple[data-width="40"] { width: 40%; }
+.analytics-bar-purple[data-width="50"] { width: 50%; }
+.analytics-bar-purple[data-width="60"] { width: 60%; }
+.analytics-bar-purple[data-width="70"] { width: 70%; }
+.analytics-bar-purple[data-width="80"] { width: 80%; }
+.analytics-bar-purple[data-width="90"] { width: 90%; }
+.analytics-bar-purple[data-width="100"] { width: 100%; }
+
+/* Upload Progress Styles */
+.upload-progress {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+.upload-progress-fill {
+  background-color: #2563eb;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.upload-progress-fill[data-progress="0"] { width: 0%; }
+.upload-progress-fill[data-progress="10"] { width: 10%; }
+.upload-progress-fill[data-progress="20"] { width: 20%; }
+.upload-progress-fill[data-progress="30"] { width: 30%; }
+.upload-progress-fill[data-progress="40"] { width: 40%; }
+.upload-progress-fill[data-progress="50"] { width: 50%; }
+.upload-progress-fill[data-progress="60"] { width: 60%; }
+.upload-progress-fill[data-progress="70"] { width: 70%; }
+.upload-progress-fill[data-progress="80"] { width: 80%; }
+.upload-progress-fill[data-progress="90"] { width: 90%; }
+.upload-progress-fill[data-progress="100"] { width: 100%; }
+
+/* Neural Core Progress Styles */
+.neural-progress {
+  width: 100%;
+  background-color: #e5e7eb;
+  border-radius: 0.5rem;
+  height: 0.5rem;
+}
+
+.neural-progress-fill {
+  background-color: #2563eb;
+  height: 0.5rem;
+  border-radius: 0.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.neural-progress-fill[data-progress="0"] { width: 0%; }
+.neural-progress-fill[data-progress="10"] { width: 10%; }
+.neural-progress-fill[data-progress="20"] { width: 20%; }
+.neural-progress-fill[data-progress="30"] { width: 30%; }
+.neural-progress-fill[data-progress="40"] { width: 40%; }
+.neural-progress-fill[data-progress="50"] { width: 50%; }
+.neural-progress-fill[data-progress="60"] { width: 60%; }
+.neural-progress-fill[data-progress="70"] { width: 70%; }
+.neural-progress-fill[data-progress="80"] { width: 80%; }
+.neural-progress-fill[data-progress="90"] { width: 90%; }
+.neural-progress-fill[data-progress="100"] { width: 100%; }
+
+/* Utility Classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.focus-visible:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #3b82f6, 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive Utilities */
+@media (max-width: 640px) {
+  .mobile-stack {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .mobile-full-width {
+    width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .md-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}

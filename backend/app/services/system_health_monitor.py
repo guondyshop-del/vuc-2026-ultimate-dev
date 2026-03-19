@@ -8,25 +8,29 @@ import logging
 import json
 import asyncio
 from datetime import datetime, timedelta
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Union
 from celery import Celery
-from dataclasses import dataclass
+from pydantic import BaseModel, Field
 
-from app.services.self_healing_service import self_healing_service
+from app.services.self_healing_service import SelfHealingService
+
+# Global instance
+self_healing_service = SelfHealingService()
 
 logger = logging.getLogger(__name__)
 
 # Celery app instance
 celery_app = Celery('vuc2026')
 
-@dataclass
-class SystemAlert:
+class SystemAlert(BaseModel):
     """System alert data structure"""
+    model_config = {"arbitrary_types_allowed": True}
+    
     alert_type: str
     severity: str  # info, warning, critical
     message: str
-    metric_value: Any
-    threshold: Any
+    metric_value: Union[str, int, float, bool, Dict[str, Any], List[Any]]
+    threshold: Union[str, int, float, bool, Dict[str, Any], List[Any]]
     timestamp: datetime
     resolved: bool = False
     resolution_time: Optional[datetime] = None

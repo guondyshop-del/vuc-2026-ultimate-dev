@@ -160,6 +160,7 @@ export default function OnboardingWizard() {
                   onChange={(e) => setPersona({ ...persona, name: e.target.value })}
                   placeholder="örn: TechWizard_TR"
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  aria-label="Persona adı girin"
                 />
               </div>
               
@@ -167,10 +168,10 @@ export default function OnboardingWizard() {
                 <div>
                   <label className="block text-sm text-gray-400 mb-2">Niş</label>
                   <select
-                    title="Niş seçin"
                     value={persona.niche}
                     onChange={(e) => setPersona({ ...persona, niche: e.target.value })}
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500"
+                    aria-label="Niş seçin"
                   >
                     <option value="technology">Teknoloji</option>
                     <option value="business">İş & Finans</option>
@@ -183,10 +184,10 @@ export default function OnboardingWizard() {
                 <div>
                   <label className="block text-sm text-gray-400 mb-2">Proxy Konumu</label>
                   <select
-                    title="Proxy konumu seçin"
                     value={persona.proxy}
                     onChange={(e) => setPersona({ ...persona, proxy: e.target.value })}
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500"
+                    aria-label="Proxy konumu seçin"
                   >
                     <option value="residential_tr">Türkiye (Residential)</option>
                     <option value="residential_de">Almanya (Residential)</option>
@@ -304,10 +305,10 @@ export default function OnboardingWizard() {
               <div>
                 <label className="block text-sm text-gray-400 mb-2">Senaryo Türü</label>
                 <select
-                  title="Senaryo türü seçin"
                   value={content.scriptType}
                   onChange={(e) => setContent({ ...content, scriptType: e.target.value })}
                   className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-xl text-white focus:ring-2 focus:ring-blue-500"
+                  aria-label="Senaryo türü seçin"
                 >
                   <option value="educational">Eğitici (Tutorial)</option>
                   <option value="storytelling">Hikaye Anlatımı</option>
@@ -338,6 +339,7 @@ export default function OnboardingWizard() {
                           ? `bg-${platform.color}-500/20 border-${platform.color}-500 text-${platform.color}-400`
                           : 'bg-gray-800 border-gray-700 text-gray-400 hover:border-gray-500'
                       }`}
+                      aria-label={`${platform.name} platformunu ${content.platforms.includes(platform.key) ? 'kaldır' : 'ekle'}`}
                     >
                       {platform.name}
                     </button>

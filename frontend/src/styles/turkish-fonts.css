@@ -1,0 +1,179 @@
+/* VUC-2026 Turkish Font Support Configuration */
+/* Optimized for Turkish characters: ç, ğ, ı, ö, ş, ü, Ç, Ğ, İ, Ö, Ş, Ü */
+
+/* Turkish Font Stack with Fallbacks */
+@font-face {
+  font-family: 'Turkish Inter';
+  src: local('Inter'), local('Inter Regular');
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Turkish Character Optimization */
+.turkish-font-stack {
+  font-family: 
+    'Inter',
+    'Segoe UI',
+    'Tahoma',
+    'Roboto',
+    'Helvetica Neue',
+    'Arial',
+    'Noto Sans',
+    'Ubuntu',
+    'Cantarell',
+    'Fira Sans',
+    'Droid Sans',
+    'Helvetica',
+    sans-serif;
+}
+
+/* Turkish Text Rendering Classes */
+.turkish-rendering {
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-ligatures: common-ligatures;
+  -moz-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  -webkit-font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+}
+
+/* Turkish Heading Styles */
+.turkish-heading-1 {
+  @apply turkish-font-stack turkish-rendering;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-heading-2 {
+  @apply turkish-font-stack turkish-rendering;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-heading-3 {
+  @apply turkish-font-stack turkish-rendering;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  unicode-bidi: plaintext;
+}
+
+/* Turkish Body Text Styles */
+.turkish-body-large {
+  @apply turkish-font-stack turkish-rendering;
+  font-size: 1.125rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-body {
+  @apply turkish-font-stack turkish-rendering;
+  font-size: 1rem;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-body-small {
+  @apply turkish-font-stack turkish-rendering;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  unicode-bidi: plaintext;
+}
+
+/* Turkish UI Components */
+.turkish-button {
+  @apply turkish-font-stack turkish-rendering;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-input {
+  @apply turkish-font-stack turkish-rendering;
+  letter-spacing: 0.01em;
+  unicode-bidi: plaintext;
+}
+
+.turkish-label {
+  @apply turkish-font-stack turkish-rendering;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  unicode-bidi: plaintext;
+}
+
+/* Turkish Character Specific Fixes */
+.turkish-char-fix {
+  /* Fixes for Turkish characters that may have rendering issues */
+  font-variant-caps: normal;
+  font-variant-numeric: normal;
+  unicode-bidi: plaintext;
+}
+
+/* Turkish RTL/LTR Support */
+.turkish-bidi {
+  unicode-bidi: plaintext;
+  direction: ltr;
+}
+
+/* Turkish Font Size Utilities */
+.turkish-text-xs { font-size: 0.75rem; line-height: 1.4; }
+.turkish-text-sm { font-size: 0.875rem; line-height: 1.5; }
+.turkish-text-base { font-size: 1rem; line-height: 1.6; }
+.turkish-text-lg { font-size: 1.125rem; line-height: 1.7; }
+.turkish-text-xl { font-size: 1.25rem; line-height: 1.8; }
+.turkish-text-2xl { font-size: 1.5rem; line-height: 1.9; }
+.turkish-text-3xl { font-size: 1.875rem; line-height: 2.0; }
+
+/* Turkish Weight Utilities */
+.turkish-thin { font-weight: 100; }
+.turkish-light { font-weight: 300; }
+.turkish-normal { font-weight: 400; }
+.turkish-medium { font-weight: 500; }
+.turkish-semibold { font-weight: 600; }
+.turkish-bold { font-weight: 700; }
+.turkish-extrabold { font-weight: 800; }
+.turkish-black { font-weight: 900; }
+
+/* Responsive Turkish Text */
+@media (max-width: 640px) {
+  .turkish-heading-1 { font-size: 1.5rem; }
+  .turkish-heading-2 { font-size: 1.25rem; }
+  .turkish-heading-3 { font-size: 1.125rem; }
+  .turkish-body-large { font-size: 1rem; }
+  .turkish-body { font-size: 0.875rem; }
+  .turkish-body-small { font-size: 0.75rem; }
+}
+
+/* Turkish Print Styles */
+@media print {
+  .turkish-print {
+    @apply turkish-font-stack;
+    color: #000;
+    background: #fff;
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+}
+
+/* Turkish Accessibility */
+.turkish-high-contrast {
+  @apply turkish-font-stack;
+  color: #000;
+  background: #fff;
+  text-shadow: none;
+}
+
+.turkish-low-vision {
+  @apply turkish-font-stack;
+  font-size: 1.2em;
+  line-height: 1.8;
+  letter-spacing: 0.05em;
+}

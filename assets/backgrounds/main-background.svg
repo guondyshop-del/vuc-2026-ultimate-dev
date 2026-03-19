@@ -1,0 +1,93 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bgGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#ec4899;stop-opacity:0.1" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="none" stroke="#374151" stroke-width="0.5" opacity="0.2"/>
+    </pattern>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="40" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Main Background -->
+  <rect width="1920" height="1080" fill="url(#bgGradient1)"/>
+  
+  <!-- Gradient Overlay -->
+  <rect width="1920" height="1080" fill="url(#bgGradient2)"/>
+  
+  <!-- Grid Pattern -->
+  <rect width="1920" height="1080" fill="url(#grid)"/>
+  
+  <!-- Glowing Orbs -->
+  <g filter="url(#glow)" opacity="0.6">
+    <circle cx="200" cy="200" r="150" fill="#3b82f6" opacity="0.3">
+      <animate attributeName="cy" values="200;250;200" dur="8s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.6;0.3" dur="6s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1720" cy="880" r="200" fill="#8b5cf6" opacity="0.3">
+      <animate attributeName="cy" values="880;830;880" dur="10s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.3;0.5;0.3" dur="7s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="960" cy="540" r="250" fill="#ec4899" opacity="0.2">
+      <animate attributeName="r" values="250;280;250" dur="12s" repeatCount="indefinite"/>
+      <animate attributeName="opacity" values="0.2;0.4;0.2" dur="9s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+  
+  <!-- Neural Network Lines -->
+  <g stroke="#3b82f6" stroke-width="1" fill="none" opacity="0.1">
+    <path d="M 0 540 Q 480 400 960 540 T 1920 540">
+      <animate attributeName="d" values="M 0 540 Q 480 400 960 540 T 1920 540;M 0 540 Q 480 600 960 540 T 1920 540;M 0 540 Q 480 400 960 540 T 1920 540" dur="15s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 0 300 Q 480 200 960 300 T 1920 300">
+      <animate attributeName="d" values="M 0 300 Q 480 200 960 300 T 1920 300;M 0 300 Q 480 400 960 300 T 1920 300;M 0 300 Q 480 200 960 300 T 1920 300" dur="18s" repeatCount="indefinite"/>
+    </path>
+    <path d="M 0 780 Q 480 680 960 780 T 1920 780">
+      <animate attributeName="d" values="M 0 780 Q 480 680 960 780 T 1920 780;M 0 780 Q 480 880 960 780 T 1920 780;M 0 780 Q 480 680 960 780 T 1920 780" dur="20s" repeatCount="indefinite"/>
+    </path>
+  </g>
+  
+  <!-- Floating Particles -->
+  <g opacity="0.4">
+    <circle cx="100" cy="100" r="2" fill="#3b82f6">
+      <animate attributeName="cy" values="100;-20;100" dur="10s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="300" cy="500" r="1.5" fill="#8b5cf6">
+      <animate attributeName="cy" values="500;-20;500" dur="12s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="500" cy="300" r="2.5" fill="#ec4899">
+      <animate attributeName="cy" values="300;-20;300" dur="8s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="700" cy="700" r="1.8" fill="#3b82f6">
+      <animate attributeName="cy" values="700;-20;700" dur="15s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="900" cy="200" r="2.2" fill="#8b5cf6">
+      <animate attributeName="cy" values="200;-20;200" dur="11s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1100" cy="600" r="1.6" fill="#ec4899">
+      <animate attributeName="cy" values="600;-20;600" dur="14s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1300" cy="400" r="2.4" fill="#3b82f6">
+      <animate attributeName="cy" values="400;-20;400" dur="9s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1500" cy="800" r="1.9" fill="#8b5cf6">
+      <animate attributeName="cy" values="800;-20;800" dur="13s" repeatCount="indefinite"/>
+    </circle>
+    <circle cx="1700" cy="150" r="2.1" fill="#ec4899">
+      <animate attributeName="cy" values="150;-20;150" dur="16s" repeatCount="indefinite"/>
+    </circle>
+  </g>
+</svg>

@@ -190,6 +190,19 @@ backend/master.key
 *.jks
 .keystore/
 
+# API Keys and Credentials
+credentials/
+*.json
+client_secret.json
+oauth_token.json
+youtube_credentials.json
+service-account-key.json
+
+# Environment files
+.env*
+!.env.example
+!.env.template
+
 # VUC-2026 Specific
 .nexus/
 temp/

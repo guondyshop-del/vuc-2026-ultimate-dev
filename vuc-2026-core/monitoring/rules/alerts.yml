@@ -1,0 +1,341 @@
+# VUC-2026 Alert Rules
+# Production monitoring alerts for system health and performance
+
+groups:
+  - name: system.rules
+    rules:
+      # High CPU usage
+      - alert: HighCPUUsage
+        expr: instance:node_cpu_utilization:rate5m > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "High CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }} for more than 5 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/cpu-high"
+
+      # Critical CPU usage
+      - alert: CriticalCPUUsage
+        expr: instance:node_cpu_utilization:rate5m > 90
+        for: 2m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "Critical CPU usage on {{ $labels.instance }}"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }} for more than 2 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/cpu-critical"
+
+      # High memory usage
+      - alert: HighMemoryUsage
+        expr: (1 - instance:node_memory_utilization:ratio) * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "High memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value }}% on {{ $labels.instance }} for more than 5 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/memory-high"
+
+      # Critical memory usage
+      - alert: CriticalMemoryUsage
+        expr: (1 - instance:node_memory_utilization:ratio) * 100 > 90
+        for: 2m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "Critical memory usage on {{ $labels.instance }}"
+          description: "Memory usage is {{ $value }}% on {{ $labels.instance }} for more than 2 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/memory-critical"
+
+      # High disk usage
+      - alert: HighDiskUsage
+        expr: instance:node_disk_utilization:ratio * 100 > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "High disk usage on {{ $labels.instance }}"
+          description: "Disk usage is {{ $value }}% on {{ $labels.instance }} for more than 5 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/disk-high"
+
+      # Critical disk usage
+      - alert: CriticalDiskUsage
+        expr: instance:node_disk_utilization:ratio * 100 > 90
+        for: 2m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "Critical disk usage on {{ $labels.instance }}"
+          description: "Disk usage is {{ $value }}% on {{ $labels.instance }} for more than 2 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/disk-critical"
+
+      # System down
+      - alert: SystemDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "System {{ $labels.instance }} is down"
+          description: "{{ $labels.instance }} has been down for more than 1 minute"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/system-down"
+
+  - name: application.rules
+    rules:
+      # Backend high error rate
+      - alert: BackendHighErrorRate
+        expr: vuc:backend:error_rate:5m > 5
+        for: 3m
+        labels:
+          severity: warning
+          service: backend
+        annotations:
+          summary: "High error rate on backend"
+          description: "Backend error rate is {{ $value }}% for more than 3 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/backend-errors"
+
+      # Backend critical error rate
+      - alert: BackendCriticalErrorRate
+        expr: vuc:backend:error_rate:5m > 15
+        for: 1m
+        labels:
+          severity: critical
+          service: backend
+        annotations:
+          summary: "Critical error rate on backend"
+          description: "Backend error rate is {{ $value }}% for more than 1 minute"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/backend-critical-errors"
+
+      # Backend slow response time
+      - alert: BackendSlowResponseTime
+        expr: vuc:backend:response_time:5m > 2
+        for: 5m
+        labels:
+          severity: warning
+          service: backend
+        annotations:
+          summary: "Slow response time on backend"
+          description: "Backend 95th percentile response time is {{ $value }}s for more than 5 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/backend-slow"
+
+      # Backend very slow response time
+      - alert: BackendVerySlowResponseTime
+        expr: vuc:backend:response_time:5m > 5
+        for: 2m
+        labels:
+          severity: critical
+          service: backend
+        annotations:
+          summary: "Very slow response time on backend"
+          description: "Backend 95th percentile response time is {{ $value }}s for more than 2 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/backend-very-slow"
+
+      # Backend down
+      - alert: BackendDown
+        expr: up{job="vuc-backend"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: backend
+        annotations:
+          summary: "Backend service is down"
+          description: "Backend service has been down for more than 1 minute"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/backend-down"
+
+  - name: database.rules
+    rules:
+      # PostgreSQL high connections
+      - alert: PostgreSQLHighConnections
+        expr: vuc:postgres:connections:count > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "High PostgreSQL connections"
+          description: "PostgreSQL has {{ $value }} active connections"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/postgres-connections"
+
+      # PostgreSQL critical connections
+      - alert: PostgreSQLCriticalConnections
+        expr: vuc:postgres:connections:count > 90
+        for: 2m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "Critical PostgreSQL connections"
+          description: "PostgreSQL has {{ $value }} active connections"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/postgres-critical-connections"
+
+      # PostgreSQL slow queries
+      - alert: PostgreSQLSlowQueries
+        expr: vuc:postgres:query_duration:5m > 1
+        for: 5m
+        labels:
+          severity: warning
+          service: database
+        annotations:
+          summary: "Slow PostgreSQL queries"
+          description: "PostgreSQL 95th percentile query time is {{ $value }}s"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/postgres-slow"
+
+      # PostgreSQL down
+      - alert: PostgreSQLDown
+        expr: up{job="postgres-exporter"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: database
+        annotations:
+          summary: "PostgreSQL is down"
+          description: "PostgreSQL has been down for more than 1 minute"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/postgres-down"
+
+  - name: redis.rules
+    rules:
+      # Redis high memory usage
+      - alert: RedisHighMemoryUsage
+        expr: vuc:redis:memory_usage:bytes / 1000000000 > 1
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis is using {{ $value | humanize1024 }} of memory"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/redis-memory"
+
+      # Redis high connections
+      - alert: RedisHighConnections
+        expr: vuc:redis:connections:count > 50
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "High Redis connections"
+          description: "Redis has {{ $value }} active connections"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/redis-connections"
+
+      # Redis down
+      - alert: RedisDown
+        expr: up{job="redis-exporter"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis is down"
+          description: "Redis has been down for more than 1 minute"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/redis-down"
+
+  - name: celery.rules
+    rules:
+      # Celery task backlog
+      - alert: CeleryTaskBacklog
+        expr: celery_queue_length > 100
+        for: 5m
+        labels:
+          severity: warning
+          service: celery
+        annotations:
+          summary: "Celery task backlog"
+          description: "Celery queue has {{ $value }} pending tasks"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/celery-backlog"
+
+      # Celery task failure rate
+      - alert: CeleryHighFailureRate
+        expr: rate(celery_task_failed_total[5m]) / rate(celery_task_sent_total[5m]) * 100 > 10
+        for: 3m
+        labels:
+          severity: warning
+          service: celery
+        annotations:
+          summary: "High Celery task failure rate"
+          description: "Celery task failure rate is {{ $value }}%"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/celery-failures"
+
+      # Celery workers down
+      - alert: CeleryWorkersDown
+        expr: celery_workers_active < 2
+        for: 2m
+        labels:
+          severity: critical
+          service: celery
+        annotations:
+          summary: "Celery workers down"
+          description: "Only {{ $value }} Celery workers are active"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/celery-workers-down"
+
+  - name: container.rules
+    rules:
+      # Container high CPU usage
+      - alert: ContainerHighCPUUsage
+        expr: container:cpu_utilization:rate5m > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: containers
+        annotations:
+          summary: "High CPU usage in container {{ $labels.name }}"
+          description: "Container {{ $labels.name }} CPU usage is {{ $value }}%"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/container-cpu"
+
+      # Container high memory usage
+      - alert: ContainerHighMemoryUsage
+        expr: container:memory_utilization:ratio > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: containers
+        annotations:
+          summary: "High memory usage in container {{ $labels.name }}"
+          description: "Container {{ $labels.name }} memory usage is {{ $value }}%"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/container-memory"
+
+      # Container restarts
+      - alert: ContainerRestarts
+        expr: increase(container_start_time_seconds[10m]) > 0
+        for: 0m
+        labels:
+          severity: warning
+          service: containers
+        annotations:
+          summary: "Container {{ $labels.name }} restarted"
+          description: "Container {{ $labels.name }} has restarted {{ $value }} times in the last 10 minutes"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/container-restarts"
+
+  - name: network.rules
+    rules:
+      # High network traffic
+      - alert: HighNetworkTraffic
+        expr: rate(node_network_receive_bytes_total[5m]) + rate(node_network_transmit_bytes_total[5m]) > 100000000
+        for: 5m
+        labels:
+          severity: warning
+          service: network
+        annotations:
+          summary: "High network traffic on {{ $labels.instance }}"
+          description: "Network traffic is {{ $value | humanize1024 }}/s on {{ $labels.instance }}"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/network-traffic"
+
+      # Network interface down
+      - alert: NetworkInterfaceDown
+        expr: node_network_up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: network
+        annotations:
+          summary: "Network interface {{ $labels.device }} down on {{ $labels.instance }}"
+          description: "Network interface {{ $labels.device }} is down on {{ $labels.instance }}"
+          runbook_url: "https://docs.vuc-2026.com/runbooks/network-interface"

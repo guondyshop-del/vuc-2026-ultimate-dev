@@ -1,0 +1,447 @@
+{
+  "production_id": "VO_20260319_224136",
+  "render_configuration": {
+    "engine": "ffmpeg_advanced",
+    "resolution": "1920x1080",
+    "fps": 30,
+    "codec": "h264",
+    "quality": "high",
+    "bitrate": "8000k",
+    "pixel_format": "yuv420p"
+  },
+  "render_stages": [
+    {
+      "stage": "visual_assets_generation",
+      "priority": 1,
+      "commands": [
+        {
+          "type": "midjourney_api",
+          "scene": 1,
+          "prompt": "Pixar 3D style, adorable baby fox with big curious eyes, peeking from behind magical glowing trees in enchanted forest, cinematic lighting with sunbeams, vibrant colors, ultra detailed, 8k resolution, --ar 16:9 --style expressive --chaos 10",
+          "output": "scene_1_hook_introduction.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        },
+        {
+          "type": "midjourney_api",
+          "scene": 2,
+          "prompt": "Cute baby fox discovering a glowing red triangle floating in magical forest, triangle pulsing with warm light, fox touching triangle with wonder expression, sparkles and magical particles, cinematic composition, 8k, --ar 16:9 --style cute",
+          "output": "scene_2_triangle_discovery.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        },
+        {
+          "type": "midjourney_api",
+          "scene": 3,
+          "prompt": "Baby fox finding a blue square magical doorway in ancient tree trunk, square glowing with mystical energy, fox peeking through square doorway, magical forest background, cinematic lighting, 8k, --ar 16:9 --style enchanting",
+          "output": "scene_3_square_discovery.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        },
+        {
+          "type": "midjourney_api",
+          "scene": 4,
+          "prompt": "Baby fox chasing glowing golden circle butterflies in magical forest, circles floating and dancing around fox, fox trying to catch circle butterflies, joyful expression, magical particles, 8k, --ar 16:9 --style whimsical",
+          "output": "scene_4_circle_discovery.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        },
+        {
+          "type": "midjourney_api",
+          "scene": 5,
+          "prompt": "Baby fox sitting in center of magical clearing, all three shapes (red triangle, blue square, golden circle) floating around fox in circle, fox pointing at shapes happily, magical celebration effects, 8k, --ar 16:9 --style celebratory",
+          "output": "scene_5_shape_review.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        },
+        {
+          "type": "midjourney_api",
+          "scene": 6,
+          "prompt": "Baby fox waving goodbye from magical forest entrance, all learned shapes floating above fox's head, sunset glow in forest, promise of return, heart shapes floating, 8k, --ar 16:9 --style heartwarming",
+          "output": "scene_6_farewell.png",
+          "parameters": {
+            "quality": "ultra_high",
+            "style": "pixar_3d",
+            "aspect_ratio": "16:9"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "audio_generation",
+      "priority": 2,
+      "commands": [
+        {
+          "type": "elevenlabs_tts",
+          "scene": 1,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Merhabaa arkadaşlar! 🦊 Ben Tilki Foxy! Büyülü ormanda harika bir maceraya hazır mısınız? 🌟 Bugün birlikte şekiller öğreneceğiz ve çok eğleneceğiz! Hadi başlayalım!",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_1_hook.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        },
+        {
+          "type": "elevenlabs_tts",
+          "scene": 2,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Vooow! 📐 Bakın ne buldum! Bu bir üçgen! Üç kenarı var, sayalım beraber: biiir, iiki, üüç! ✨ Tıpkı bir piramit gibi! Siz de üçgen şeklindeki şeyleri arayın!",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_2_triangle.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        },
+        {
+          "type": "elevenlabs_tts",
+          "scene": 3,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Tıkaa tıkaa! 🚪 Bu sihirli kapı kare şeklinde! Dört kenarı var, dört köşesi! Mesela pencereniz, kitabınız, hatta oyun hamurunuz! 📚 Kareleri buldunuz mu?",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_3_square.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        },
+        {
+          "type": "elevenlabs_tts",
+          "scene": 4,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Hadi top oynayalım! ⭕ Bu daire! Yuvarlak ve dönüyor! Güneş, top, tekerlek, pizza! 🍕 Daireler etrafımızda her yerde! Siz de yuvarlak şeylerle oynayın!",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_4_circle.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        },
+        {
+          "type": "elevenlabs_tts",
+          "scene": 5,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Harikasınız! 🌟 Şimdi hepsini biliyoruz! Kırmızı üçgen! 📐 Mavi kare! 🚪 Altın daire! ⭕ Hangi şekli en çok sevdiniz? Bana söyleyin! 🎯",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_5_review.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        },
+        {
+          "type": "elevenlabs_tts",
+          "scene": 6,
+          "payload": {
+            "model": "eleven_multilingual_v2",
+            "voice_id": "rachel",
+            "text": "Macera bitti ama eğlence bitmedi! 🦊❤️ Beğendiyseniz beğenmeyi ve kanala abone olmayı unutmayın! Sizi seviyorum! Görüşürüz! 👋✨",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          },
+          "output": "audio_scene_6_farewell.mp3",
+          "parameters": {
+            "model": "eleven_multilingual_v2",
+            "voice_settings": {
+              "stability": 0.71,
+              "similarity_boost": 0.85,
+              "style": 0.15,
+              "use_speaker_boost": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "stage": "music_generation",
+      "priority": 3,
+      "commands": [
+        {
+          "type": "suno_api",
+          "prompt": "Upbeat magical introduction, 110bpm, xyloophone melody, gentle strings, children's choir, wonder and excitement, background music, 30 seconds",
+          "output": "music_intro.mp3",
+          "parameters": {
+            "duration": 30,
+            "tempo": 110,
+            "style": "magical_upbeat"
+          }
+        },
+        {
+          "type": "suno_api",
+          "prompt": "Playful discovery theme, 110bpm, xyloophone and flute duet, cheerful melody, educational rhythm, background music, 30 seconds",
+          "output": "music_discovery.mp3",
+          "parameters": {
+            "duration": 120,
+            "tempo": 110,
+            "style": "playful_educational"
+          }
+        },
+        {
+          "type": "suno_api",
+          "prompt": "Celebration and review, 110bpm, full orchestra, triumphant melody, children cheering, achievement celebration, background music, 30 seconds",
+          "output": "music_celebration.mp3",
+          "parameters": {
+            "duration": 30,
+            "tempo": 110,
+            "style": "celebration"
+          }
+        },
+        {
+          "type": "suno_api",
+          "prompt": "Warm farewell melody, 110bpm, gentle piano and strings, nostalgic but hopeful, subscription reminder, background music, 30 seconds",
+          "output": "music_farewell.mp3",
+          "parameters": {
+            "duration": 30,
+            "tempo": 110,
+            "style": "warm_farewell"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "video_composition",
+      "priority": 4,
+      "commands": [
+        {
+          "type": "ffmpeg_compose",
+          "scene": 1,
+          "input_visual": "scene_1_hook_introduction.png",
+          "input_audio": "audio_scene_1_hook.mp3",
+          "background_music": "music_intro.mp3",
+          "duration": 30,
+          "output": "video_scene_1.mp4",
+          "effects": [
+            "fade_in",
+            "text_overlay",
+            "sparkle_effects"
+          ],
+          "transitions": [
+            "smooth_zoom"
+          ]
+        },
+        {
+          "type": "ffmpeg_compose",
+          "scene": 2,
+          "input_visual": "scene_2_triangle_discovery.png",
+          "input_audio": "audio_scene_2_triangle.mp3",
+          "background_music": "music_discovery.mp3",
+          "duration": 30,
+          "output": "video_scene_2.mp4",
+          "effects": [
+            "shape_glow",
+            "number_animation",
+            "sparkle_effects"
+          ],
+          "transitions": [
+            "dissolve"
+          ]
+        },
+        {
+          "type": "ffmpeg_compose",
+          "scene": 3,
+          "input_visual": "scene_3_square_discovery.png",
+          "input_audio": "audio_scene_3_square.mp3",
+          "background_music": "music_discovery.mp3",
+          "duration": 30,
+          "output": "video_scene_3.mp4",
+          "effects": [
+            "doorway_glow",
+            "number_animation",
+            "magical_particles"
+          ],
+          "transitions": [
+            "slide"
+          ]
+        },
+        {
+          "type": "ffmpeg_compose",
+          "scene": 4,
+          "input_visual": "scene_4_circle_discovery.png",
+          "input_audio": "audio_scene_4_circle.mp3",
+          "background_music": "music_discovery.mp3",
+          "duration": 30,
+          "output": "video_scene_4.mp4",
+          "effects": [
+            "circle_motion",
+            "butterfly_animation",
+            "spinning_effects"
+          ],
+          "transitions": [
+            "spin"
+          ]
+        },
+        {
+          "type": "ffmpeg_compose",
+          "scene": 5,
+          "input_visual": "scene_5_shape_review.png",
+          "input_audio": "audio_scene_5_review.mp3",
+          "background_music": "music_celebration.mp3",
+          "duration": 30,
+          "output": "video_scene_5.mp4",
+          "effects": [
+            "celebration_confetti",
+            "shape_rotation",
+            "question_mark"
+          ],
+          "transitions": [
+            "zoom"
+          ]
+        },
+        {
+          "type": "ffmpeg_compose",
+          "scene": 6,
+          "input_visual": "scene_6_farewell.png",
+          "input_audio": "audio_scene_6_farewell.mp3",
+          "background_music": "music_farewell.mp3",
+          "duration": 30,
+          "output": "video_scene_6.mp4",
+          "effects": [
+            "heart_animations",
+            "fade_out",
+            "subscribe_button"
+          ],
+          "transitions": [
+            "fade"
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "final_assembly",
+      "priority": 5,
+      "commands": [
+        {
+          "type": "ffmpeg_concat",
+          "input_videos": [
+            "video_scene_1.mp4",
+            "video_scene_2.mp4",
+            "video_scene_3.mp4",
+            "video_scene_4.mp4",
+            "video_scene_5.mp4",
+            "video_scene_6.mp4"
+          ],
+          "output": "final_video_merged.mp4",
+          "parameters": {
+            "crossfade_duration": 0.5,
+            "normalize_audio": true,
+            "add_watermark": true
+          }
+        }
+      ]
+    }
+  ],
+  "thumbnail_generation": {
+    "type": "midjourney_api",
+    "prompt": "Pixar 3D style, adorable baby fox with big sparkling eyes holding glowing red triangle, surrounded by blue square and golden circle, magical enchanted forest background, cinematic lighting, vibrant colors, high contrast, emotional expression of wonder, text overlay 'ŞEKİLLER ÖĞRENİYORUZ!' bottom third, 8k ultra detailed, --ar 16:9 --style expressive",
+    "output": "thumbnail_final.jpg",
+    "parameters": {
+      "quality": "ultra_high",
+      "style": "childrens_educational_high_contrast",
+      "aspect_ratio": "16:9",
+      "text_overlay": [
+        {
+          "text": "🦊 ŞEKİLLER ÖĞRENİYORUZ!",
+          "position": "bottom_third",
+          "font": "rounded_bold",
+          "color": "#FFFFFF",
+          "stroke": "#000000",
+          "size": "large"
+        },
+        {
+          "text": "🎯 3 DAKİKADA TÜM ŞEKİLLER",
+          "position": "top_center",
+          "font": "playful",
+          "color": "#FFD700",
+          "stroke": "#FF6B6B",
+          "size": "medium"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "production_id": "VO_20260319_224119",
+  "video_metadata": {
+    "title": "🦊 Büyülü Ormanda Şekilleri Öğrenen Hayvanlar! 🌟 | 3 Dakikada Tüm Şekiller",
+    "description": "Katılın büyülü orman macerasına! Sevimli hayvan arkadaşlarımızla birlikte üçgen, kare, daire ve daha birçok şekli öğreniyoruz. 🎯 Eğlenceli ve eğitici çizgi film 3-6 yaş çocukları için mükemmel!",
+    "tags": [
+      "çocuklar için şekiller",
+      "eğitici çizgi film",
+      "okul öncesi eğitim",
+      "geometri öğrenme",
+      "hayvanlar",
+      "büyülü orman",
+      "şekil öğretme",
+      "çocuk gelişimi",
+      "eğitici videolar",
+      "animasyon"
+    ],
+    "duration": 180,
+    "target_age": "3-6",
+    "language": "tr"
+  },
+  "scene_matrix": [
+    {
+      "scene_id": 1,
+      "timestamp": "00:00 - 00:30",
+      "scene_type": "hook_introduction",
+      "duration": 30,
+      "objective": "attention_capture",
+      "visual_prompt": "Pixar 3D style, adorable baby fox with big curious eyes, peeking from behind magical glowing trees in enchanted forest, cinematic lighting with sunbeams, vibrant colors, ultra detailed, 8k resolution, --ar 16:9 --style expressive --chaos 10",
+      " tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Merhabaa arkadaşlar! 🦊 Ben Tilki Foxy! Büyülü ormanda harika bir maceraya hazır mısınız? 🌟 Bugün birlikte şekiller öğreneceğiz ve çok eğleneceğiz! Hadi başlayalım!",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Upbeat magical introduction, 110bpm, xyloophone melody, gentle strings, children's choir, wonder and excitement, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "glowing_trees",
+        "sunbeams",
+        "title_text"
+      ],
+      "interaction_prompt": "Siz de ormana hazır mısınız? 🙋‍♀️"
+    },
+    {
+      "scene_id": 2,
+      "timestamp": "00:30 - 01:00",
+      "scene_type": "shape_discovery_triangle",
+      "duration": 30,
+      "objective": "triangle_learning",
+      "visual_prompt": "Cute baby fox discovering a glowing red triangle floating in magical forest, triangle pulsing with warm light, fox touching triangle with wonder expression, sparkles and magical particles, cinematic composition, 8k, --ar 16:9 --style cute",
+      "tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Vooow! 📐 Bakın ne buldum! Bu bir üçgen! Üç kenarı var, sayalım beraber: biiir, iiki, üüç! ✨ Tıpkı bir piramit gibi! Siz de üçgen şeklindeki şeyleri arayın!",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Playful discovery theme, 110bpm, xyloophone and flute duet, cheerful melody, educational rhythm, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "glowing_triangle",
+        "number_animations",
+        "sparkles"
+      ],
+      "interaction_prompt": "Evinizde üçgen şeklinde ne var? 🏠"
+    },
+    {
+      "scene_id": 3,
+      "timestamp": "01:00 - 01:30",
+      "scene_type": "shape_discovery_square",
+      "duration": 30,
+      "objective": "square_learning",
+      "visual_prompt": "Baby fox finding a blue square magical doorway in ancient tree trunk, square glowing with mystical energy, fox peeking through square doorway, magical forest background, cinematic lighting, 8k, --ar 16:9 --style enchanting",
+      "tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Tıkaa tıkaa! 🚪 Bu sihirli kapı kare şeklinde! Dört kenarı var, dört köşesi! Mesela pencereniz, kitabınız, hatta oyun hamurunuz! 📚 Kareleri buldunuz mu?",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Rhythmic counting song, 110bpm, percussion and xyloophone, counting beat 1-2-3-4, playful educational, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "glowing_square",
+        "doorway_effect",
+        "number_4"
+      ],
+      "interaction_prompt": "Dört tane sevdiğiniz şeyi sayın! 🎲"
+    },
+    {
+      "scene_id": 4,
+      "timestamp": "01:30 - 02:00",
+      "scene_type": "shape_discovery_circle",
+      "duration": 30,
+      "objective": "circle_learning",
+      "visual_prompt": "Baby fox chasing glowing golden circle butterflies in magical forest, circles floating and dancing around fox, fox trying to catch circle butterflies, joyful expression, magical particles, 8k, --ar 16:9 --style whimsical",
+      "tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Hadi top oynayalım! ⭕ Bu daire! Yuvarlak ve dönüyor! Güneş, top, tekerlek, pizza! 🍕 Daireler etrafımızda her yerde! Siz de yuvarlak şeylerle oynayın!",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Circular motion music, 110bpm, flowing melody, strings and woodwinds, spinning rhythm, happy and flowing, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "circle_butterflies",
+        "spinning_effects",
+        "happy_dance"
+      ],
+      "interaction_prompt": "Yuvarlak hareketler yapın! 🔄"
+    },
+    {
+      "scene_id": 5,
+      "timestamp": "02:00 - 02:30",
+      "scene_type": "shape_review_game",
+      "duration": 30,
+      "objective": "learning_reinforcement",
+      "visual_prompt": "Baby fox sitting in center of magical clearing, all three shapes (red triangle, blue square, golden circle) floating around fox in circle, fox pointing at shapes happily, magical celebration effects, 8k, --ar 16:9 --style celebratory",
+      "tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Harikasınız! 🌟 Şimdi hepsini biliyoruz! Kırmızı üçgen! 📐 Mavi kare! 🚪 Altın daire! ⭕ Hangi şekli en çok sevdiniz? Bana söyleyin! 🎯",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Celebration and review, 110bpm, full orchestra, triumphant melody, children cheering, achievement celebration, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "all_three_shapes",
+        "celebration_effects",
+        "question_mark"
+      ],
+      "interaction_prompt": "En sevdiğiniz şekli yorum yazın! 💬"
+    },
+    {
+      "scene_id": 6,
+      "timestamp": "02:30 - 03:00",
+      "scene_type": "farewell_call_to_action",
+      "duration": 30,
+      "objective": "retention_and_subscription",
+      "visual_prompt": "Baby fox waving goodbye from magical forest entrance, all learned shapes floating above fox's head, sunset glow in forest, promise of return, heart shapes floating, 8k, --ar 16:9 --style heartwarming",
+      "tts_payload": {
+        "model": "eleven_multilingual_v2",
+        "voice_id": "rachel",
+        "text": "Macera bitti ama eğlence bitmedi! 🦊❤️ Beğendiyseniz beğenmeyi ve kanala abone olmayı unutmayın! Sizi seviyorum! Görüşürüz! 👋✨",
+        "voice_settings": {
+          "stability": 0.71,
+          "similarity_boost": 0.85,
+          "style": 0.15,
+          "use_speaker_boost": true
+        }
+      },
+      "music_prompt": "Warm farewell melody, 110bpm, gentle piano and strings, nostalgic but hopeful, subscription reminder, background music, 30 seconds",
+      "on_screen_elements": [
+        "tilki_character",
+        "all_shapes_memory",
+        "heart_animations",
+        "subscribe_button"
+      ],
+      "interaction_prompt": "Abone olup bir sonraki macerayı bekleyin! 🌈"
+    }
+  ],
+  "production_assets": {
+    "thumbnail_generation": {
+      "prompt": "Pixar 3D style, adorable baby fox with big sparkling eyes holding glowing red triangle, surrounded by blue square and golden circle, magical enchanted forest background, cinematic lighting, vibrant colors, high contrast, emotional expression of wonder, text overlay 'ŞEKİLLER ÖĞRENİYORUZ!' bottom third, 8k ultra detailed, --ar 16:9 --style expressive",
+      "style": "childrens_educational_high_contrast",
+      "text_elements": [
+        {
+          "text": "🦊 ŞEKİLLER ÖĞRENİYORUZ!",
+          "position": "bottom_third",
+          "font": "rounded_bold",
+          "color": "#FFFFFF",
+          "stroke": "#000000",
+          "size": "large"
+        },
+        {
+          "text": "🎯 3 DAKİKADA TÜM ŞEKİLLER",
+          "position": "top_center",
+          "font": "playful",
+          "color": "#FFD700",
+          "stroke": "#FF6B6B",
+          "size": "medium"
+        }
+      ],
+      "ctr_optimization": {
+        "character_eye_contact": true,
+        "color_contrast": "maximum",
+        "emotional_expression": "wonder_excitement",
+        "text_readability": "high"
+      }
+    },
+    "audio_configuration": {
+      "voice_settings": {
+        "primary_voice": "rachel",
+        "model": "eleven_multilingual_v2",
+        "language": "tr",
+        "stability": 0.71,
+        "similarity_boost": 0.85,
+        "style": 0.15,
+        "use_speaker_boost": true
+      },
+      "music_settings": {
+        "tempo": "110bpm",
+        "style": "upbeat_educational",
+        "instruments": [
+          "xyloophone",
+          "flute",
+          "strings",
+          "light_percussion"
+        ],
+        "mood": "magical_playful"
+      },
+      "sound_effects": [
+        {
+          "name": "magical_sparkle",
+          "timing": "shape_discovery"
+        },
+        {
+          "name": "wonder_gasps",
+          "timing": "hook_moments"
+        },
+        {
+          "name": "celebration_chime",
+          "timing": "learning_success"
+        }
+      ]
+    }
+  }
+}

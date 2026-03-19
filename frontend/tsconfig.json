@@ -30,7 +30,8 @@
       ]
     },
     "types": [
-      "./types/modules.d.ts"
+      "./types/modules.d.ts",
+      "./types/ui-components.d.ts"
     ]
   },
   "include": [

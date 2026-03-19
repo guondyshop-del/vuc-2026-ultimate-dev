@@ -1,14 +1,12 @@
 'use client';
 
+import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useState, useEffect, useCallback } from 'react';
 import {
-  Globe, Video, Users, Search, BarChart3, Zap, Shield,
-  Brain, TrendingUp, AlertTriangle, CheckCircle, RefreshCw,
-  Play, Upload, Eye, Target, Cpu, Activity, Lock, Unlock,
-  Image, Twitter, Instagram, Smartphone, Monitor, Radio,
-  ChevronRight, Plus, Settings, Database, Layers, Crosshair,
-  DollarSign, Fingerprint, Sparkles
+  Video, Globe, Users, Search, DollarSign, Fingerprint, BarChart3,
+  Play, Zap, Activity, CheckCircle, AlertTriangle, Eye, Crosshair,
+  Smartphone, Instagram, Twitter, Monitor, Layers, ChevronRight,
+  Radio, TrendingUp, Shield, Cpu, Image
 } from 'lucide-react';
 
 // Trust score → nearest-5 Tailwind width class (avoids inline styles)
@@ -936,7 +934,7 @@ function RevenueTab() {
           <div className="space-y-3">
             {affiliateOpportunities.map((opp: any, i: number) => (
               <div key={i} className="bg-gray-700/50 rounded-lg p-3">
-                <div className="flex justify-between items-start">
+                <div className="flex items-center gap-2">
                   <div>
                     <p className="text-sm font-medium text-white">{opp.product}</p>
                     <p className="text-xs text-gray-400">{opp.category}</p>

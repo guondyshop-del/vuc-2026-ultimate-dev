@@ -1,0 +1,49 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pwa512Gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8B5CF6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#EC4899;stop-opacity:1" />
+    </linearGradient>
+    <filter id="pwa512Glow">
+      <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="80" fill="url(#pwa512Gradient)"/>
+  
+  <!-- Main Brain Icon -->
+  <g transform="translate(256, 256)" filter="url(#pwa512Glow)">
+    <!-- Brain Shape -->
+    <path d="M -90 -32 C -105 -45, -105 -75, -75 -95 C -60 -110, -30 -110, -15 -95 C 0 -110, 30 -110, 45 -95 C 60 -110, 90 -110, 105 -95 C 115 -75, 115 -45, 105 -32 C 115 -15, 115 15, 105 32 C 115 45, 115 75, 105 95 C 90 110, 60 110, 45 95 C 30 110, 0 110, -15 95 C -30 110, -60 110, -75 95 C -90 110, -105 75, -105 60 C -115 45, -115 15, -105 0 C -115 -15, -115 -45, -105 -60 C -105 -75, -90 -75, -90 -32 Z" 
+          fill="#ffffff" 
+          opacity="0.95"/>
+    
+    <!-- Neural Network -->
+    <g stroke="url(#pwa512Gradient)" stroke-width="6" fill="none" opacity="0.8">
+      <line x1="-65" y1="-50" x2="65" y2="50"/>
+      <line x1="-65" y1="0" x2="65" y2="0"/>
+      <line x1="-65" y1="50" x2="65" y2="-50"/>
+      <line x1="0" y1="-65" x2="0" y2="65"/>
+      
+      <!-- Neural Nodes -->
+      <circle cx="-65" cy="-50" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="65" cy="50" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="-65" cy="0" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="65" cy="0" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="-65" cy="50" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="65" cy="-50" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="0" cy="-65" r="10" fill="url(#pwa512Gradient)"/>
+      <circle cx="0" cy="65" r="10" fill="url(#pwa512Gradient)"/>
+    </g>
+    
+    <!-- VUC Text -->
+    <text x="0" y="170" font-family="Arial, sans-serif" font-size="72" font-weight="bold" text-anchor="middle" fill="#ffffff">VUC</text>
+    <text x="0" y="210" font-family="Arial, sans-serif" font-size="42" text-anchor="middle" fill="#ffffff" opacity="0.9">2026</text>
+  </g>
+</svg>

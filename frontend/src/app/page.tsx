@@ -28,7 +28,7 @@ export default function HomePage() {
     // Sistem durumunu kontrol et
     const checkSystemStatus = async () => {
       try {
-        const response = await fetch('/api/health');
+        const response = await fetch('http://localhost:8000/health');
         if (response.ok) {
           const data = await response.json();
           setSystemStatus(prev => ({
@@ -156,10 +156,10 @@ export default function HomePage() {
             className="text-center"
           >
             <h1 className="text-6xl font-bold mb-6">
-              <span className="gradient-text">VUC-2026</span>
+              <span className="gradient-text">ONX</span>
             </h1>
             <p className="text-2xl text-gray-300 mb-8 max-w-3xl mx-auto">
-              Vespera Ultimate Central - Otonom YouTube İmparatorluk Yönetim Sistemi
+              ONX - Otonom YouTube İmparatorluğu Yönetim Sistemi
             </p>
             <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
               Yapay zeka destekli, tam otomatik video üretim ve yönetim platformu ile YouTube'da rakipsiz olun
@@ -310,7 +310,7 @@ export default function HomePage() {
               YouTube İmparatorluğunu <span className="gradient-text">Şimdi Başlat</span>
             </h2>
             <p className="text-xl text-gray-400 mb-8">
-              VUC-2026 ile rakipleriniz geride kalacak. Otonom üretim, akıllı analiz ve grey-hat stratejilerle zirveye ulaşın.
+              ONX ile rakipleriniz geride kalacak. Otonom üretim, akıllı analiz ve grey-hat stratejilerle zirveye ulaşın.
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}

@@ -1,0 +1,13 @@
+.progress-bar {
+  background-color: rgb(var(--vuc-primary-600));
+  height: 0.5rem;
+  border-radius: 9999px;
+  transition: all 0.3s;
+}
+
+.progress-container {
+  background-color: rgb(229 231 235);
+  border-radius: 9999px;
+  height: 0.5rem;
+  width: 8rem;
+}

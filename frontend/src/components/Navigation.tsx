@@ -20,15 +20,21 @@ import {
   X,
   Zap,
   TrendingUp,
-  Shield
+  Shield,
+  Type
 } from 'lucide-react';
+import EmpireReadinessScore from './EmpireReadinessScore';
 
 const navigation = [
-  { name: 'Ana Sayfa', href: '/', icon: Home, description: 'VUC-2026 Dashboard' },
-  { name: 'Savaş Odası', href: '/war-room', icon: TrendingUp, description: 'Komuta Merkezi' },
+  { name: 'Ana Sayfa', href: '/', icon: Home },
+  { name: 'Savaş Odası', href: '/war-room', icon: TrendingUp },
+  { name: 'AI Senaryo', href: '/ai-script', icon: Brain },
+  { name: 'Rakip Analiz', href: '/competitor-analysis', icon: Search },
+  { name: 'Video Render', href: '/video-render', icon: Video },
+  { name: 'Sistem Monitor', href: '/system-monitor', icon: Shield },
+  { name: 'Türkçe Font', href: '/turkish-font-test', icon: Type, description: 'Türkçe Karakter Desteği' },
   { name: 'Omniverse', href: '/omniverse', icon: Shield, description: 'Multi-Platform İmparatorluğu' },
   { name: 'Empire Control', href: '/empire', icon: Brain, description: 'Neural Architecture' },
-  { name: 'Co-Founder Desk', href: '/cofounder', icon: Users, description: 'AI Danışmanlık' },
   { name: 'Kanallar', href: '/channels', icon: Globe, description: 'Kanal Yönetimi' },
   { name: 'Sistem Belleği', href: '/memory', icon: Database, description: 'Analytics Vault' },
   { name: 'Windows AI', href: '/windows-ai', icon: Zap, description: 'Yerel AI Servisleri' },
@@ -55,7 +61,7 @@ export default function Navigation() {
                   <Brain className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-white">VUC-2026</h1>
+                  <h1 className="text-xl font-bold text-white">ONX</h1>
                   <p className="text-xs text-gray-400">Neural Empire Manager</p>
                 </div>
               </div>
@@ -87,6 +93,7 @@ export default function Navigation() {
 
               {/* Status Indicators */}
               <div className="flex items-center space-x-4">
+                <EmpireReadinessScore />
                 <div className="flex items-center space-x-2 px-3 py-1 bg-green-500/20 rounded-lg">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                   <span className="text-xs text-green-400 font-medium">Sistem Aktif</span>
@@ -120,7 +127,7 @@ export default function Navigation() {
                   <Brain className="w-6 h-6 text-white" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-white">VUC-2026</h1>
+                  <h1 className="text-xl font-bold text-white">ONX</h1>
                   <p className="text-xs text-gray-400">Neural Empire</p>
                 </div>
               </div>

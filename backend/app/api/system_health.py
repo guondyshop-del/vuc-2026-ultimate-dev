@@ -8,7 +8,10 @@ from typing import Dict, Any, List, Optional
 from datetime import datetime, timedelta
 
 from app.services.system_health_monitor import health_monitor
-from app.services.self_healing_service import self_healing_service
+from app.services.self_healing_service import SelfHealingService
+
+# Global instance
+self_healing_service = SelfHealingService()
 from app.database import get_db
 
 router = APIRouter(prefix="/api/system-health", tags=["system-health"])

@@ -1,0 +1,155 @@
+{
+  "production_id": "VO_20260319_224136",
+  "target_demographic": {
+    "age_range": "3-6",
+    "developmental_stage": "pre_operational",
+    "attention_span": "3-5 minutes",
+    "learning_style": "visual_kinesthetic"
+  },
+  "target_keywords": [
+    {
+      "keyword": "çocuklar için şekiller öğrenme",
+      "search_volume": "12500",
+      "competition": "medium",
+      "difficulty": 32,
+      "intent": "educational"
+    },
+    {
+      "keyword": "eğitici çizgi film şekiller",
+      "search_volume": "8900",
+      "competition": "low",
+      "difficulty": 28,
+      "intent": "entertainment_educational"
+    },
+    {
+      "keyword": "okul öncesi geometri",
+      "search_volume": "6700",
+      "competition": "very_low",
+      "difficulty": 22,
+      "intent": "parental_resource"
+    },
+    {
+      "keyword": "hayvanlar şekil öğretiyor",
+      "search_volume": "15200",
+      "competition": "medium",
+      "difficulty": 35,
+      "intent": "engaging_content"
+    },
+    {
+      "keyword": "büyülü orman macerası",
+      "search_volume": "9800",
+      "competition": "low",
+      "difficulty": 26,
+      "intent": "storytelling"
+    }
+  ],
+  "lsi_clusters": [
+    {
+      "cluster_name": "geometrik_temel_kavramlar",
+      "keywords": [
+        "üçgen",
+        "kare",
+        "daire",
+        "dikdörtgen",
+        "yıldız"
+      ],
+      "semantic_weight": 0.85,
+      "context": "core_shapes"
+    },
+    {
+      "cluster_name": "eğitici_eylemler",
+      "keywords": [
+        "öğreniyor",
+        "keşfediyor",
+        "buluyor",
+        "tanımlıyor",
+        "sayıyor"
+      ],
+      "semantic_weight": 0.78,
+      "context": "learning_actions"
+    },
+    {
+      "cluster_name": "doğal_ortam",
+      "keywords": [
+        "orman",
+        "ağaç",
+        "çiçek",
+        "güneş",
+        "bulut",
+        "yol"
+      ],
+      "semantic_weight": 0.72,
+      "context": "natural_setting"
+    },
+    {
+      "cluster_name": "duygusal_ifadeler",
+      "keywords": [
+        "şaşırma",
+        "sevinç",
+        "merak",
+        "heyecan",
+        "gülümseme"
+      ],
+      "semantic_weight": 0.68,
+      "context": "emotional_responses"
+    },
+    {
+      "cluster_name": "ebeveyn_odaklı",
+      "keywords": [
+        "eğitim",
+        "gelişim",
+        "öğrenme",
+        "okul öncesi",
+        "hazırlık"
+      ],
+      "semantic_weight": 0.91,
+      "context": "parental_focus"
+    }
+  ],
+  "ctr_triggers": [
+    {
+      "type": "curiosity_gap",
+      "content": "🦊 Tilki Neden Şaşırdı?",
+      "placement": "thumbnail_overlay",
+      "psychological_trigger": "curiosity",
+      "ctr_boost": "+23%"
+    },
+    {
+      "type": "educational_promise",
+      "content": "🎯 3 Dakikada 5 Şekil!",
+      "placement": "title_highlight",
+      "psychological_trigger": "efficiency",
+      "ctr_boost": "+18%"
+    },
+    {
+      "type": "emotional_connection",
+      "content": "🌟 Büyülü Dostluklar",
+      "placement": "thumbnail_emotion",
+      "psychological_trigger": "empathy",
+      "ctr_boost": "+15%"
+    }
+  ],
+  "algorithm_optimization": {
+    "watch_time_strategy": {
+      "hook_pattern": "question_promise",
+      "retention_points": [
+        15,
+        45,
+        90,
+        135,
+        165
+      ],
+      "pattern_interrupts": 4
+    },
+    "engagement_signals": {
+      "comment_prompts": 3,
+      "like_reminders": 2,
+      "share_triggers": 1
+    },
+    "discovery_factors": {
+      "thumbnail_contrast": "high",
+      "title_emotional_words": 3,
+      "description_keywords": 12
+    }
+  }
+}

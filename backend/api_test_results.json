@@ -1,0 +1,35 @@
+{
+  "test_date": "2026-03-19T21:26:50.855677",
+  "summary": {
+    "total_tests": 4,
+    "successful": 0,
+    "failed": 4,
+    "success_rate": 0.0
+  },
+  "results": [
+    {
+      "service": "Google Gemini API",
+      "status": "\u274c FAILED",
+      "status_code": 400,
+      "error": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key not valid. Please pass a valid API key.\",\n  "
+    },
+    {
+      "service": "ElevenLabs API",
+      "status": "\u274c FAILED",
+      "status_code": 401,
+      "error": "{\"detail\":{\"status\":\"invalid_api_key\",\"message\":\"Invalid API key\"}}"
+    },
+    {
+      "service": "YouTube Data API v3",
+      "status": "\u274c FAILED",
+      "status_code": 400,
+      "error": "{\n  \"error\": {\n    \"code\": 400,\n    \"message\": \"API key not valid. Please pass a valid API key.\",\n  "
+    },
+    {
+      "service": "Ahrefs API",
+      "status": "\u274c FAILED",
+      "status_code": 404,
+      "error": "Not found"
+    }
+  ]
+}

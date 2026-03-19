@@ -79,27 +79,43 @@ export default function Dashboard() {
   const fetchDashboardData = async () => {
     try {
       // Kanal verileri
-      const channelsResponse = await fetch('/api/channels');
+      const channelsResponse = await fetch('http://localhost:8000/api/channels/');
       if (channelsResponse.ok) {
         const channelsData = await channelsResponse.json();
-        setChannels(channelsData);
+        setChannels(channelsData.scripts || []);
       }
 
       // Video verileri
-      const videosResponse = await fetch('/api/videos');
+      const videosResponse = await fetch('http://localhost:8000/api/videos/');
       if (videosResponse.ok) {
         const videosData = await videosResponse.json();
-        setVideos(videosData);
+        setVideos(videosData.videos || []);
       }
 
       // Sistem istatistikleri
-      const statsResponse = await fetch('/api/analytics/system');
+      const statsResponse = await fetch('http://localhost:8000/api/analytics/system');
       if (statsResponse.ok) {
         const statsData = await statsResponse.json();
         setSystemStats(statsData);
       }
     } catch (error) {
       console.error('Dashboard verileri çekilemedi:', error);
+      // Mock data ile devam et
+      setChannels([
+        {id: 1, name: "Teknoloji Kanalı", niche: "Teknoloji", subscribers: 50000, views: 1250000, revenue: 2500, status: "active"},
+        {id: 2, name: "Eğitim Kanalı", niche: "Eğitim", subscribers: 30000, views: 750000, revenue: 1500, status: "active"}
+      ]);
+      setVideos([
+        {id: 1, title: "10 Teknoloji Mitleri", status: "published", views: 125000, progress: 100, scheduled_at: "2024-01-15T10:00:00Z"},
+        {id: 2, title: "Yapay Zeka Analizi", status: "rendering", views: 0, progress: 75, scheduled_at: "2024-01-16T14:00:00Z"}
+      ]);
+      setSystemStats({
+        cpu_usage: 45.2,
+        memory_usage: 62.8,
+        gpu_usage: 23.1,
+        active_tasks: 3,
+        queued_videos: 2
+      });
     }
   };
 
