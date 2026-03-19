@@ -21,11 +21,12 @@ from app.services.media_engine import MediaEngine
 from app.services.grey_hat_service import GreyHatService
 from app.services.windows_ai_service import WindowsAIService
 from app.services.directml_accelerator import DirectMLAccelerator
-from celery_app.celery import celery_app
-from celery_app.tasks.competitor_analysis import analyze_competitor
-from celery_app.tasks.video_rendering import render_video_task
-from celery_app.tasks.upload_tasks import upload_video_task
-from celery_app.tasks.ai_tasks import generate_script_task
+from app.services.self_healing_service import self_healing_service
+from app.celery_app.celery import celery_app
+from app.celery_app.tasks.competitor_analysis import analyze_competitor
+from app.celery_app.tasks.video_rendering import render_video_with_fallback_task
+from app.celery_app.tasks.upload_tasks import upload_video_task, schedule_upload_for_later_task
+from app.celery_app.tasks.ai_tasks import generate_script_task
 
 logger = logging.getLogger(__name__)
 
@@ -144,6 +145,15 @@ class VUCOrchestrator:
         except Exception as e:
             logger.error(f"Otonom iş akışı hatası: {e}")
             await self._update_state("idle", None)
+            
+            # Log system recovery attempt
+            await self._log_recovery_event(
+                "autonomous_workflow",
+                str(e),
+                "workflow_error_handling",
+                False
+            )
+            
             return {"success": False, "error": str(e)}
     
     async def _analyze_competitors(self, channel: Channel) -> Dict[str, Any]:
@@ -245,98 +255,167 @@ class VUCOrchestrator:
         try:
             script_data = strategy_result["script"]
             
-            # DirectML ile hızlandırılmış stok medya getir
-            media_files = self.media_engine.fetch_stock_media(
-                query=script_data["title"],
-                media_type="video",
-                count=3
-            )
+            # Channel config for render task
+            channel_config = {
+                "id": channel.id,
+                "name": channel.name,
+                "niche": channel.niche,
+                "language": channel.language
+            }
             
-            # DirectML ile medya dosyalarını optimize et
-            optimized_media = []
-            for media_file in media_files:
-                if self.directml_accelerator.is_available:
-                    # Görüntü kalitesini artır
-                    enhanced_media = f"enhanced_{os.path.basename(media_file)}"
-                    await self.directml_accelerator.accelerate_image_processing(
-                        media_file, enhanced_media, "enhance"
-                    )
-                    optimized_media.append(enhanced_media)
-                else:
-                    optimized_media.append(media_file)
-            
-            # Windows AI ile thumbnail analizi
-            thumbnail_path = self.media_engine.create_thumbnail(
-                title=script_data["title"],
-                style="hormozi"
-            )
-            
-            if self.windows_ai_service.is_available:
-                # Thumbnail'ı analiz et ve optimize et
-                thumbnail_analysis = await self.windows_ai_service.analyze_image_with_ai(thumbnail_path)
-                if thumbnail_analysis.get("success"):
-                    logger.info(f"Thumbnail analizi tamamlandı: {thumbnail_analysis}")
-            
-            # Video render et - DirectML ile hızlandırılmış
-            video_path = await self.media_engine.render_video(
+            # Self-healing render task with fallback
+            render_task = render_video_with_fallback_task.delay(
                 script_data=script_data,
-                media_files=optimized_media
+                channel_config=channel_config
             )
             
-            # DirectML ile video kalitesini artır
-            if self.directml_accelerator.is_available:
-                enhanced_video = f"enhanced_{os.path.basename(video_path)}"
-                enhancement_result = await self.directml_accelerator.accelerate_video_processing(
-                    video_path, enhanced_video, "enhance"
-                )
-                if enhancement_result.get("success"):
-                    video_path = enhanced_video
-                    logger.info(f"Video DirectML ile enhance edildi: {enhancement_result}")
+            # Wait for render completion with timeout
+            try:
+                render_result = render_task.get(timeout=1800)  # 30 minutes
+            except Exception as e:
+                logger.error(f"Render task timeout or error: {e}")
+                return {"success": False, "error": f"Render failed: {str(e)}"}
             
-            # Shadowban Shield uygula
-            shielded_video = self.grey_hat_service.apply_algorithm_shield(video_path)
+            if not render_result.get("success"):
+                # Log failure and check for fallback
+                fallback_applied = render_result.get("fallback_applied")
+                if fallback_applied:
+                    logger.warning(f"Render completed with fallback: {fallback_applied}")
+                    
+                    # Log recovery event
+                    await self._log_recovery_event(
+                        "video_production",
+                        str(render_result.get("error", "Unknown error")),
+                        fallback_applied,
+                        False
+                    )
+                
+                return render_result
+            
+            # Success - log and return
+            logger.info(f"Video production completed: {render_result.get('video_path')}")
             
             return {
                 "success": True,
-                "video_path": shielded_video,
-                "thumbnail_path": thumbnail_path,
+                "video_path": render_result["video_path"],
+                "thumbnail_path": render_result["thumbnail_path"],
                 "script_id": script_data.get("id"),
                 "title": script_data["title"],
                 "duration": script_data.get("estimated_duration", 300),
-                "windows_ai_used": self.windows_ai_service.is_available,
-                "directml_used": self.directml_accelerator.is_available
+                "windows_ai_used": render_result.get("directml_used", False),
+                "directml_used": render_result.get("directml_used", False),
+                "quality_applied": render_result.get("quality_settings", {}),
+                "fallback_attempts": render_result.get("fallback_attempts", 0)
             }
             
         except Exception as e:
             logger.error(f"Video üretim hatası: {e}")
+            
+            # Log recovery attempt
+            await self._log_recovery_event(
+                "video_production",
+                str(e),
+                "orchestrator_error_handling",
+                False
+            )
+            
             return {"success": False, "error": str(e)}
     
     async def _upload_video(self, channel: Channel, 
                           render_result: Dict) -> Dict[str, Any]:
-        """Video yükleme adımı"""
+        """Video yükleme adımı - Self-healing ile geliştirilmiş"""
         try:
-            # Yükleme görevini başlat
-            task = upload_video_task.delay(
+            # Prepare upload metadata
+            title = render_result["title"]
+            description = self._generate_description(render_result)
+            tags = self._generate_tags(channel, render_result)
+            
+            # Start self-healing upload task
+            upload_task = upload_video_task.delay(
                 channel_id=channel.id,
                 video_path=render_result["video_path"],
                 thumbnail_path=render_result["thumbnail_path"],
-                title=render_result["title"],
-                description=self._generate_description(render_result),
-                tags=self._generate_tags(channel, render_result)
+                title=title,
+                description=description,
+                tags=tags,
+                privacy_status="private"  # Start as private, will be made public later
             )
             
-            # Yükleme sonucunu bekle
-            result = task.get(timeout=600)  # 10 dakika timeout
+            # Wait for upload completion with timeout
+            try:
+                upload_result = upload_task.get(timeout=600)  # 10 minutes
+            except Exception as e:
+                logger.error(f"Upload task timeout or error: {e}")
+                
+                # Try schedule for later as fallback
+                logger.info("Attempting to schedule upload for later...")
+                schedule_task = schedule_upload_for_later_task.delay(
+                    channel_id=channel.id,
+                    video_path=render_result["video_path"],
+                    thumbnail_path=render_result["thumbnail_path"],
+                    title=title,
+                    description=description,
+                    tags=tags,
+                    delay_minutes=120  # 2 hours later
+                )
+                
+                schedule_result = schedule_task.get(timeout=60)
+                
+                # Log recovery event
+                await self._log_recovery_event(
+                    "video_upload",
+                    str(e),
+                    "scheduled_for_later",
+                    True
+                )
+                
+                return {
+                    "success": False,
+                    "error": f"Upload failed, scheduled for later: {str(e)}",
+                    "fallback_applied": "schedule_later",
+                    "scheduled_time": schedule_result.get("scheduled_time"),
+                    "recovery_action": "upload_scheduled"
+                }
+            
+            if not upload_result.get("success"):
+                # Check if fallback was applied
+                fallback_applied = upload_result.get("fallback_applied")
+                if fallback_applied:
+                    logger.warning(f"Upload completed with fallback: {fallback_applied}")
+                    
+                    # Log recovery event
+                    await self._log_recovery_event(
+                        "video_upload",
+                        str(upload_result.get("error", "Unknown error")),
+                        fallback_applied,
+                        False
+                    )
+                
+                return upload_result
+            
+            # Success - log and return
+            logger.info(f"Video upload completed: {upload_result.get('youtube_id')}")
             
             return {
-                "success": result.get("success", False),
-                "youtube_id": result.get("youtube_id"),
-                "upload_url": result.get("upload_url"),
-                "error": result.get("error")
+                "success": True,
+                "youtube_id": upload_result["youtube_id"],
+                "youtube_url": upload_result["youtube_url"],
+                "upload_time": upload_result.get("upload_time"),
+                "optimizations_applied": upload_result.get("optimizations_applied", {}),
+                "file_size_mb": upload_result.get("file_size_mb")
             }
             
         except Exception as e:
             logger.error(f"Video yükleme hatası: {e}")
+            
+            # Log recovery attempt
+            await self._log_recovery_event(
+                "video_upload",
+                str(e),
+                "orchestrator_error_handling",
+                False
+            )
+            
             return {"success": False, "error": str(e)}
     
     async def _start_ghost_interactions(self, upload_result: Dict) -> Dict[str, Any]:
@@ -553,6 +632,46 @@ class VUCOrchestrator:
             
         except Exception as e:
             logger.error(f"Karar günlüğü kaydetme hatası: {e}")
+    
+    async def _log_recovery_event(self, operation_type: str, original_error: str, 
+                                recovery_action: str, success: bool):
+        """Kurtarma olayını kaydet"""
+        try:
+            recovery_log = self_healing_service.log_recovery_event(
+                operation_type=operation_type,
+                original_error=original_error,
+                recovery_action=recovery_action,
+                success=success
+            )
+            
+            logger.info(f"Recovery event logged: {recovery_log['recovery_id']}")
+            
+        except Exception as e:
+            logger.error(f"Recovery log kaydetme hatası: {e}")
+    
+    async def check_system_health_and_recover(self) -> Dict[str, Any]:
+        """Sistem sağlığını kontrol et ve otomatik kurtarma"""
+        try:
+            health_status = self_healing_service.check_system_health()
+            
+            # Log health check
+            logger.info(f"System health check: {health_status['overall_health']}")
+            
+            # If there are alerts, log them
+            if health_status.get("alerts"):
+                for alert in health_status["alerts"]:
+                    logger.warning(f"System alert: {alert}")
+            
+            return health_status
+            
+        except Exception as e:
+            logger.error(f"System health check failed: {e}")
+            return {
+                "timestamp": datetime.now().isoformat(),
+                "overall_health": "error",
+                "alerts": [f"Health check failed: {str(e)}"],
+                "metrics": {}
+            }
 
 # Global orchestrator instance
 orchestrator = VUCOrchestrator()

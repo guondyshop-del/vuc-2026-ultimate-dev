@@ -2,7 +2,26 @@
 const nextConfig = {
   output: 'standalone',
   images: {
-    domains: ['localhost', '127.0.0.1', 'i.ytimg.com', 'pexels.com', 'pixabay.com'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/static/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pexels.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pixabay.com',
+      },
+    ],
   },
   async rewrites() {
     return [

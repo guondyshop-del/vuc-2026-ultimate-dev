@@ -41,6 +41,7 @@ interface AnalyticsData {
     total_videos_analyzed: number;
     successful_patterns_identified: number;
     performance_improvement: number;
+    optimization_cycles: number;
   };
 }
 

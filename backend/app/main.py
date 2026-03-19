@@ -2,19 +2,37 @@ from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
+from contextlib import asynccontextmanager
 import uvicorn
 import os
 
 from .database import get_db, init_db
-from app.api import channels, videos, scripts, analytics, settings, channel_management
-from app.api.empire import router as empire_router
-from app.api.windows_ai import router as windows_ai_router
-from app.api.system import router as system_router
-from app.api.upload import router as upload_router
-from app.api.windows_ml import router as windows_ml_router
-from app.api.google_seo import router as google_seo_router
-from app.api.omniverse import router as omniverse_router
+from .api import channels, videos, scripts, analytics, settings, channel_management, system_health
+from .api.empire import router as empire_router
+from .api.windows_ai import router as windows_ai_router
+from .api.system import router as system_router
+from .api.upload import router as upload_router
+from .api.windows_ml import router as windows_ml_router
+from .api.google_seo import router as google_seo_router
+from .api.omniverse import router as omniverse_router
 from .services.settings_service import SettingsService
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Application lifespan events"""
+    # Startup
+    print("🚀 VUC-2026 Backend starting up...")
+    # Database initialization
+    try:
+        init_db()
+        print("✅ Database initialized successfully")
+    except Exception as e:
+        print(f"⚠️ Database initialization failed: {e}")
+    
+    yield
+    
+    # Shutdown
+    print("🛑 VUC-2026 Backend shutting down...")
 
 # FastAPI app initialization
 app = FastAPI(
@@ -22,7 +40,8 @@ app = FastAPI(
     description="Vespera Ultimate Central - Otonom YouTube İmparatorluk Yönetim Sistemi",
     version="1.0.0",
     docs_url="/docs",
-    redoc_url="/redoc"
+    redoc_url="/redoc",
+    lifespan=lifespan
 )
 
 # CORS middleware
@@ -33,10 +52,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# Static files
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/assets", StaticFiles(directory="../assets"), name="assets")
 
 # Include API routers
 app.include_router(channels.router, prefix="/api/channels", tags=["channels"])
@@ -52,22 +67,7 @@ app.include_router(upload_router, tags=["upload"])
 app.include_router(windows_ml_router, tags=["windows-ml"])
 app.include_router(google_seo_router, tags=["google-seo"])
 app.include_router(omniverse_router, prefix="/api/omniverse", tags=["omniverse"])
-
-@app.on_event("startup")
-async def startup_event():
-    """Başlangıç işlemleri"""
-    # Veritabanını başlat
-    init_db()
-    
-    # Varsayılan ayarları yükle
-    settings_service = SettingsService()
-    await settings_service.load_default_settings()
-    
-    # Gerekli dizinleri oluştur
-    os.makedirs("static", exist_ok=True)
-    os.makedirs("logs", exist_ok=True)
-    os.makedirs("temp", exist_ok=True)
-    os.makedirs("../assets", exist_ok=True)
+app.include_router(system_health.router, tags=["system-health"])
 
 @app.get("/")
 async def root():

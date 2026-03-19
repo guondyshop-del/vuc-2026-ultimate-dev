@@ -11,17 +11,17 @@ from fastapi import APIRouter, HTTPException
 from typing import Dict, List, Any
 from datetime import datetime
 
-from ..services.ghost_cloak import ghost_cloak
-from ..services.ai_cutter import ai_cutter
-from ..services.multiverse_adapter import multiverse_adapter
-from ..services.ghost_auditor import ghost_auditor
-from ..services.thumbnail_analyzer import thumbnail_analyzer
-from ..services.omni_spy_v5 import omni_spy_v5
-from ..services.stealth_engine_v4 import stealth_engine_v4
-from ..services.revenue_maximizer import revenue_maximizer
-from ..services.lurker_algorithm import lurker_algorithm
-from ..services.engagement_loop import engagement_loop
-from ..services.transcription_seo import transcription_seo
+from app.services.ghost_cloak import ghost_cloak
+from app.services.ai_cutter import ai_cutter
+from app.services.multiverse_adapter import multiverse_adapter
+from app.services.ghost_auditor import ghost_auditor
+from app.services.thumbnail_analyzer import thumbnail_analyzer
+from app.services.omni_spy_v5 import omni_spy_v5
+from app.services.stealth_engine_v4 import stealth_engine_v4
+from app.services.revenue_maximizer import revenue_maximizer
+from app.services.lurker_algorithm import lurker_algorithm
+from app.services.engagement_loop import engagement_loop
+from app.services.transcription_seo import transcription_seo
 
 logger = logging.getLogger(__name__)
 router = APIRouter()

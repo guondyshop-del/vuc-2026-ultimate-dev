@@ -38,7 +38,7 @@ class ScriptAgent:
             "conversation_fillers": ["hımm", "şey", "yani", "aslında", "biraz"],
             "typing_variations": ["...", "----", "///", "***"],
             "emotional_markers": ["😊", "😎", "🤔", "😂", "🔥"],
-            "natural_pauses": [", ", ", "...", "---"],
+            "natural_pauses": [", ", "...", "---"],
             "contractions": ["'nın", "'nın", "'ki", "'mi", "'de"]
         }
         self.ai_bypass_techniques = {
