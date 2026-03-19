@@ -1,0 +1,37 @@
+{
+  "general": {
+    "app_name": "VUC-2026",
+    "version": "1.0.0",
+    "debug": false,
+    "log_level": "INFO"
+  },
+  "ai": {
+    "provider": "google",
+    "model": "gemini-2.0-pro",
+    "temperature": 0.7,
+    "max_tokens": 4000
+  },
+  "video": {
+    "default_duration": 300,
+    "resolution": "1920x1080",
+    "fps": 30,
+    "codec": "h264"
+  },
+  "upload": {
+    "auto_upload": false,
+    "privacy": "public",
+    "category": "22"
+  },
+  "windows_ai": {
+    "enabled": true,
+    "use_directml": true,
+    "ocr_language": "tr",
+    "speech_language": "tr-TR"
+  },
+  "notifications": {
+    "email_enabled": false,
+    "push_enabled": true,
+    "success_notifications": true,
+    "error_notifications": true
+  }
+}

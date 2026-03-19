@@ -1,0 +1,126 @@
+version: '3.9'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vuc2026_postgres
+    environment:
+      POSTGRES_DB: vuc2026
+      POSTGRES_USER: vuc2026_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-vuc2026_secure_pass}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vuc2026_user -d vuc2026"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # Redis
+  redis:
+    image: redis:7-alpine
+    container_name: vuc2026_redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-vuc2026_redis}
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "--pass", "${REDIS_PASSWORD:-vuc2026_redis}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vuc2026_backend
+    environment:
+      DATABASE_URL: postgresql+asyncpg://vuc2026_user:${POSTGRES_PASSWORD:-vuc2026_secure_pass}@postgres:5432/vuc2026
+      REDIS_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/2
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}
+      SECRET_KEY: ${SECRET_KEY:-vuc2026_secret_key_change_in_production}
+      ENVIRONMENT: production
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./backend/static:/app/static
+      - ./backend/temp:/app/temp
+      - ./vuc_memory:/app/vuc_memory
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Celery Worker
+  celery_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vuc2026_celery
+    command: celery -A celery_app.celery_config worker --loglevel=info --concurrency=4 -Q default,high_priority,uploads
+    environment:
+      DATABASE_URL: postgresql+asyncpg://vuc2026_user:${POSTGRES_PASSWORD:-vuc2026_secure_pass}@postgres:5432/vuc2026
+      REDIS_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/0
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/2
+      GOOGLE_AI_API_KEY: ${GOOGLE_AI_API_KEY:-}
+      YOUTUBE_API_KEY: ${YOUTUBE_API_KEY:-}
+    volumes:
+      - ./backend/logs:/app/logs
+      - ./backend/temp:/app/temp
+      - ./vuc_memory:/app/vuc_memory
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Celery Beat Scheduler
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vuc2026_beat
+    command: celery -A celery_app.celery_config beat --loglevel=info --scheduler redbeat.RedBeatScheduler
+    environment:
+      CELERY_BROKER_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/1
+      CELERY_RESULT_BACKEND: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/2
+      REDBEAT_REDIS_URL: redis://:${REDIS_PASSWORD:-vuc2026_redis}@redis:6379/3
+    depends_on:
+      redis:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # Next.js Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: vuc2026_frontend
+    environment:
+      NEXT_PUBLIC_API_URL: http://backend:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:

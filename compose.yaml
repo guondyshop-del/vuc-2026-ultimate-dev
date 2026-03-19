@@ -1,0 +1,10 @@
+services:
+  vuc2026frontend:
+    image: vuc2026frontend
+    build:
+      context: frontend
+      dockerfile: ./Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3000:3000

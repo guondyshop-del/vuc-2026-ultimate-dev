@@ -1,0 +1,28 @@
+.progressBarFill {
+  background-color: rgb(59 130 246);
+  height: 0.5rem;
+  border-radius: 9999px;
+  transition: all 300ms ease-in-out;
+}
+
+.progressBarFillWidth0 { width: 0%; }
+.progressBarFillWidth5 { width: 5%; }
+.progressBarFillWidth10 { width: 10%; }
+.progressBarFillWidth15 { width: 15%; }
+.progressBarFillWidth20 { width: 20%; }
+.progressBarFillWidth25 { width: 25%; }
+.progressBarFillWidth30 { width: 30%; }
+.progressBarFillWidth35 { width: 35%; }
+.progressBarFillWidth40 { width: 40%; }
+.progressBarFillWidth45 { width: 45%; }
+.progressBarFillWidth50 { width: 50%; }
+.progressBarFillWidth55 { width: 55%; }
+.progressBarFillWidth60 { width: 60%; }
+.progressBarFillWidth65 { width: 65%; }
+.progressBarFillWidth70 { width: 70%; }
+.progressBarFillWidth75 { width: 75%; }
+.progressBarFillWidth80 { width: 80%; }
+.progressBarFillWidth85 { width: 85%; }
+.progressBarFillWidth90 { width: 90%; }
+.progressBarFillWidth95 { width: 95%; }
+.progressBarFillWidth100 { width: 100%; }

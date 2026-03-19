@@ -1,0 +1,147 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-03-19T10:11:00Z",
+  "successful_patterns": {
+    "upload_times": {
+      "best_hours": [9, 14, 19, 21],
+      "best_days": ["pazartesi", "sali", "persembe"],
+      "conversion_rates": {
+        "09:00": 0.087,
+        "14:00": 0.092,
+        "19:00": 0.095,
+        "21:00": 0.089
+      }
+    },
+    "title_patterns": {
+      "high_ctr_templates": [
+        "🔥 SOK EDEN {keyword} GERCEGI!",
+        "⚠️ BU {keyword} HAKKINDA BILMENIZ GEREKENLER",
+        "🎯 {keyword} ILE {result} ELDE ETTIM!",
+        "💥 {keyword} SIRRLARI ACIKLIYORUM",
+        "🚀 {keyword} ILE PARADOKS DEGISIKLIK!"
+      ],
+      "emotional_triggers": ["sok", "gizem", "firsat", "tehlike", "sirr"],
+      "length_optimal": 45,
+      "case_pattern": "title_case"
+    },
+    "thumbnail_styles": {
+      "high_performing": {
+        "hormozi": {
+          "ctr_average": 0.112,
+          "colors": ["sari", "siyah", "kirmizi"],
+          "elements": ["kalin_yazi", "oklar", "yuz_ifadeleri"],
+          "success_rate": 0.87
+        },
+        "minimal": {
+          "ctr_average": 0.076,
+          "colors": ["beyaz", "mavi"],
+          "elements": ["temiz_yazi", "ikonlar"],
+          "success_rate": 0.65
+        }
+      }
+    },
+    "content_strategies": {
+      "hook_patterns": {
+        "questions": {
+          "success_rate": 0.89,
+          "examples": [
+            "Bunu biliyor muydunuz?",
+            "İnanamayacaksınız ama...",
+            "Size bir sır vereceğim..."
+          ]
+        },
+        "shock_value": {
+          "success_rate": 0.94,
+          "examples": [
+            "BU YASAKLANDI!",
+            "HİÇBİR YERDE GÖREMEZSİNİZ!",
+            "SON 24 SAAT!"
+          ]
+        },
+        "curiosity_gap": {
+          "success_rate": 0.91,
+          "examples": [
+            "Neden kimse başaramadı?",
+            "Gizli kalan tek şey...",
+            "Uzmanlar saklıyor..."
+          ]
+        }
+      },
+      "cta_optimization": {
+        "best_phrases": [
+          "Hemen abone olun!",
+          "Bildirimleri açmayı unutmayın!",
+          "Yorumlarda görüşlerinizi bekliyorum!",
+          "Bir sonraki video için takip edin!"
+        ],
+        "placement": "last_10_seconds",
+        "frequency": "every_30_seconds"
+      }
+    },
+    "tag_effectiveness": {
+      "high_performing": {
+        "crypto": ["bitcoin", "altcoin", "blockchain", "kripto para", "yatırım", "değişim"],
+        "baby": ["bebek bakımı", "yeni ebeveyn", "bebek uyku", "bebek beslenme", "ebeveynlik"],
+        "military": ["askeri", "savunma", "ordu", "silah", "strateji", "çatışma"],
+        "tech": ["yapay zeka", "teknoloji", "yazılım", "donanım", "inovasyon"],
+        "gaming": ["oyun", "espor", "gaming", "oyun incelemesi", "oyun rehberi"]
+      },
+      "tag_combinations": {
+        "viral_mix": ["trend", "viral", "2026", "yeni", "sok", "gizem"],
+        "seo_boost": ["nasıl yapılır", "rehber", "ipuçları", "öğren", "anlatım"]
+      }
+    },
+    "niche_specific": {
+      "crypto": {
+        "optimal_duration": 420,
+        "best_upload_times": [14, 20],
+        "content_angle": "firsat_ve_risk",
+        "emotional_tone": "heyecanli_ve_bilgilendirici"
+      },
+      "baby": {
+        "optimal_duration": 300,
+        "best_upload_times": [9, 15, 20],
+        "content_angle": "yardimci_ve_sevecen",
+        "emotional_tone": "sicak_ve_guvenilir"
+      },
+      "military": {
+        "optimal_duration": 600,
+        "best_upload_times": [10, 18, 22],
+        "content_angle": "stratejik_ve_guclu",
+        "emotional_tone": "ciddi_ve_yetkili"
+      },
+      "tech": {
+        "optimal_duration": 480,
+        "best_upload_times": [11, 16, 21],
+        "content_angle": "yenilikci_ve_pratik",
+        "emotional_tone": "bilgilendirici_ve_ilham_verici"
+      }
+    }
+  },
+  "learning_metrics": {
+    "total_videos_analyzed": 1247,
+    "successful_patterns_identified": 89,
+    "optimization_cycles": 23,
+    "performance_improvement": 0.34,
+    "last_learning_update": "2026-03-19T09:30:00Z"
+  },
+  "auto_optimization": {
+    "enabled": true,
+    "confidence_threshold": 0.75,
+    "min_sample_size": 50,
+    "auto_apply_changes": true,
+    "human_approval_required": false
+  },
+  "prediction_models": {
+    "viral_potential": {
+      "accuracy": 0.78,
+      "factors": ["title_pattern", "upload_time", "thumbnail_style", "content_length"],
+      "last_trained": "2026-03-18T15:45:00Z"
+    },
+    "engagement_forecast": {
+      "accuracy": 0.82,
+      "factors": ["hook_strength", "cta_placement", "emotional_arc"],
+      "last_trained": "2026-03-18T16:20:00Z"
+    }
+  }
+}
