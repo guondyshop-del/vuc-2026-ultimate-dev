@@ -181,3 +181,44 @@ vuc_memory/cache/
 *.key
 master.key
 backend/master.key
+*.pem
+*.p12
+*.jks
+.keystore/
+
+# VUC-2026 Specific
+.nexus/
+temp/
+models/temp/
+database/temp/
+
+# AI Models (large files)
+*.onnx
+*.pt
+*.pth
+*.h5
+*.pb
+
+# Virtual environments
+.venv/
+venv/
+env/
+env*/
+backend/venv/
+frontend/node_modules/
+
+# Production builds
+.next/
+out/
+build/
+dist/
+backend/build/
+frontend/build/
+
+# Docker
+.dockerignore
+
+# Backup files
+*.bak
+*.backup
+*.old
