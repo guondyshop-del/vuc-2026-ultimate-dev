@@ -1,6 +1,9 @@
 {
   "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
   "stylelint.validate": ["css", "scss"],
+  "stylelint.enable": true,
   "files.associations": {
     "*.css": "tailwindcss"
   },
@@ -14,6 +17,7 @@
   },
   "tailwindCSS.experimental.classRegex": [],
   "css.customData": [".vscode/css_custom_data.json"],
-  "scss.validate": false,
-  "less.validate": false
+  "emmet.includeLanguages": {
+    "css": "html"
+  }
 }
