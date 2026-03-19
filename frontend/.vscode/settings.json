@@ -1,0 +1,19 @@
+{
+  "css.validate": false,
+  "stylelint.validate": ["css", "scss"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  },
+  "tailwindCSS.includeLanguages": {
+    "css": "html",
+    "typescript": "javascript",
+    "typescriptreact": "javascript"
+  },
+  "tailwindCSS.experimental.classRegex": [],
+  "css.customData": [".vscode/css_custom_data.json"],
+  "scss.validate": false,
+  "less.validate": false
+}
