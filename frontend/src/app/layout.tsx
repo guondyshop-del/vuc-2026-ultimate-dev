@@ -21,9 +21,9 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJYs7IxrPPSx4woyNZ/0PirhA6xmjyJx2v7b5dZJdZ0g==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} bg-gray-900 text-white`}>
         <Navigation />
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <div className="min-h-screen">
           {children}
         </div>
         <Toaster

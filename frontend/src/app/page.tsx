@@ -144,7 +144,7 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen text-white">
+    <div className="min-h-screen bg-gray-900 text-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-blue-500/10 to-purple-500/10" />
