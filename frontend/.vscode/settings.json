@@ -4,6 +4,12 @@
   "less.validate": false,
   "stylelint.validate": ["css", "scss"],
   "stylelint.enable": true,
+  "css.languageServer": "None",
+  "css.lint.unknownAtRules": "ignore",
+  "css.lint.validProperties": [
+    "backdrop-filter",
+    "-webkit-backdrop-filter"
+  ],
   "files.associations": {
     "*.css": "tailwindcss"
   },
@@ -16,7 +22,7 @@
     "typescriptreact": "javascript"
   },
   "tailwindCSS.experimental.classRegex": [],
-  "css.customData": [".vscode/css_custom_data.json"],
+  "css.customData": [".vscode/tailwind.json", ".vscode/css_custom_data.json"],
   "emmet.includeLanguages": {
     "css": "html"
   }

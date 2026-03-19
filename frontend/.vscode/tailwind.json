@@ -1,0 +1,49 @@
+{
+  "version": 1.1,
+  "atDirectives": [
+    {
+      "name": "@tailwind",
+      "description": "Tailwind CSS directive for injecting base, components, utilities styles"
+    },
+    {
+      "name": "@apply",
+      "description": "Tailwind CSS directive for applying utility classes"
+    },
+    {
+      "name": "@layer",
+      "description": "Tailwind CSS directive for organizing CSS into layers"
+    },
+    {
+      "name": "@config",
+      "description": "Tailwind CSS directive for specifying configuration file"
+    },
+    {
+      "name": "@variants",
+      "description": "Tailwind CSS directive for adding variants"
+    },
+    {
+      "name": "@responsive",
+      "description": "Tailwind CSS directive for responsive utilities"
+    },
+    {
+      "name": "@screen",
+      "description": "Tailwind CSS directive for screen breakpoints"
+    }
+  ],
+  "properties": [
+    {
+      "name": "theme",
+      "description": "Tailwind CSS theme function"
+    },
+    {
+      "name": "backdrop-filter",
+      "description": "CSS backdrop-filter property"
+    },
+    {
+      "name": "-webkit-backdrop-filter",
+      "description": "WebKit backdrop-filter property"
+    }
+  ],
+  "pseudoClasses": [],
+  "pseudoElements": []
+}
